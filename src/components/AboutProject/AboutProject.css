@@ -1,0 +1,104 @@
+@import url(../../vendor/inter/inter.css);
+@import url(//db.onlinewebfonts.com/c/88f10bf18a36407ef36bf30bc25a3618?family=Suisse+Intl);
+
+.about {
+  background-color: #ffffff;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 110px 70px;
+}
+
+.about__title {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  width: 100%;
+  padding: 0 0 23px;
+  border-bottom: 1px solid #000000;
+  margin: 0 0 70px;
+}
+
+.about__container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 110px;
+}
+
+.about__container:last-of-type {
+  margin: 0;
+}
+
+.about__info + .about__info {
+  margin-left: 40px;
+}
+
+.about__info-title {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  padding: 0;
+  margin: 0 0 26px;
+}
+
+.about__info-text {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+}
+
+.about__time {
+  width: 20%;
+  padding: 0;
+  margin: 0;
+}
+
+.about__time + .about__time {
+  width: 80%;
+}
+
+.about__time-text {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #000000;
+  background-color: #2BE080;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 9px 0;
+  margin: 0 0 14px;
+}
+
+.about__time-text_position_right {
+  background-color: #F2F2F2;
+}
+
+.about__time-title {
+  font-family: Suisse Intl, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #A0A0A0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
