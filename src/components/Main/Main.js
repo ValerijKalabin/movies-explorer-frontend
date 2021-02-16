@@ -3,9 +3,9 @@ import AboutProject from '../AboutProject/AboutProject'
 
 function Main() {
   return (
-    <div className="main">
+    <main className="main">
       <AboutProject />
-    </div>
+    </main>
   );
 }
 
