@@ -1,0 +1,53 @@
+@import url(../../vendor/inter/inter.css);
+
+.search {
+  padding: 60px 0 70px;
+  border-bottom: 1px solid #E8E8E8;
+  margin: 0 70px 10px;
+}
+
+.search__form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #F9F9F9;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px;
+  border-radius: 40px;
+  margin: 0 0 40px;
+}
+
+.search__input {
+  display: block;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 17px;
+  color: #000000;
+  background-color: #F9F9F9;
+  width: calc(100% - 100px);
+  padding: 0 0 0 16px;
+  border: none;
+  outline: none;
+  border-radius: 48px;
+  margin: 0;
+}
+
+.search__button {
+  display: block;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  color: #FFFFFF;
+  background: #FF6838;
+  padding: 8px 13px;
+  border: none;
+  outline: none;
+  border-radius: 48px;
+  margin: 0;
+}

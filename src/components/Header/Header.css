@@ -9,6 +9,12 @@
   margin: 0;
 }
 
+.header__link {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
 .header__logo {
   display: block;
   width: 38px;

@@ -1,9 +1,7 @@
 import './Navigation.css';
 import { Link, NavLink } from 'react-router-dom';
 
-function Navigation() {
-  const loggedIn = true;
-
+function Navigation({ loggedIn }) {
   return (
     <nav className="navigation">
       {!loggedIn &&
