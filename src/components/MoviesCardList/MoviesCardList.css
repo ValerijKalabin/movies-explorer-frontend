@@ -1,0 +1,36 @@
+@import url(../../vendor/inter/inter.css);
+
+.cards {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 70px 70px 80px;
+  margin: 0;
+}
+
+.cards__list {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 60px;
+}
+
+.cards__button {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+  background-color: #F9F9F9;
+  width: 100%;
+  padding: 11px 0 9px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  margin: 0;
+  cursor: pointer;
+}

@@ -1,5 +1,4 @@
 @import url(../../vendor/inter/inter.css);
-@import url(//db.onlinewebfonts.com/c/88f10bf18a36407ef36bf30bc25a3618?family=Suisse+Intl);
 
 .about {
   background-color: #ffffff;
@@ -91,7 +90,7 @@
 }
 
 .about__time-title {
-  font-family: Suisse Intl, Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;

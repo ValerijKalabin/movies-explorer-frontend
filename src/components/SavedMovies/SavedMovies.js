@@ -1,25 +1,25 @@
-import './Movies.css';
+import './SavedMovies.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import cards from '../../utils/cards';
+import savedCards from '../../utils/savedCards';
 
-function Movies() {
+function SavedMovies() {
   const loggedIn = true;
 
   return (
-    <div className="movies">
+    <div className="saved-movies">
       <Header loggedIn={loggedIn} />
       <SearchForm />
       <MoviesCardList
-        cards={cards}
-        isSavedMoviesList={false}
-        isVisibleButtonMore={true}
+        cards={savedCards}
+        isSavedMoviesList={true}
+        isVisibleButtonMore={false}
       />
       <Footer />
     </div>
   );
 }
 
-export default Movies;
+export default SavedMovies;
