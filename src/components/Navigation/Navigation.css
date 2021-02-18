@@ -1,0 +1,106 @@
+@import url(../../vendor/inter/inter.css);
+
+.navigation {
+  width: calc(100% - 82px);
+  padding: 0;
+  margin: 0;
+}
+
+.navigation__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: baseline;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation__auth-item + .navigation__auth-item {
+  margin-left: 30px;
+}
+
+.navigation__signup {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #FFFFFF;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation__signin {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #000000;
+  background-color: #2BE080;
+  padding: 8px 20px;
+  border-radius: 3px;
+  margin: 0;
+}
+
+.navigation__main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation__movie-item + .navigation__movie-item {
+  margin-left: 16px;
+}
+
+.navigation__movie {
+  display: block;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation__movie_active {
+  font-weight: 500;
+}
+
+.navigation__profile {
+  position: relative;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #000000;
+  padding: 0 43px 0 0;
+  margin: 0;
+}
+
+.navigation__profile::after {
+  content: '';
+  position: absolute;
+  top: -7px;
+  right: 0;
+  width: 26px;
+  border-radius: 4px;
+  height: 30px;
+  background-color: #F9F9F9;
+  background-image: url(../../images/account.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
