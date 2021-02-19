@@ -108,3 +108,22 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 862px) {
+
+}
+
+@media screen and (max-width: 462px) {
+  .navigation__auth-item + .navigation__auth-item {
+    margin-left: 14px;
+  }
+
+  .navigation__signup {
+    font-size: 10px;
+  }
+
+  .navigation__signin {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+}

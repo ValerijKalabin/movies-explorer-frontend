@@ -34,3 +34,37 @@
   margin: 0;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1080px) {
+  .cards__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 862px) {
+  .cards {
+    padding: 70px 30px 80px;
+  }
+
+  .cards__list {
+    column-gap: 24px;
+    row-gap: 35px;
+    margin: 0 0 80px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .cards__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 462px) {
+  .cards {
+    padding: 40px 10px 80px;
+  }
+
+  .cards__list {
+    row-gap: 16px;
+  }
+}
