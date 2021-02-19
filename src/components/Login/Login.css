@@ -1,6 +1,6 @@
 @import url(../../vendor/inter/inter.css);
 
-.register {
+.login {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,17 +12,17 @@
   margin: 0;
 }
 
-.register__container {
+.login__container {
   width: 396px;
   padding: 0;
   margin: 0 0 45px;
 }
 
-.register__container:last-child {
+.login__container:last-child {
   margin: 0;
 }
 
-.register__logo {
+.login__logo {
   display: block;
   width: 38px;
   height: 38px;
@@ -30,7 +30,7 @@
   margin: 0 0 40px;
 }
 
-.register__image {
+.login__image {
   display: block;
   width: 38px;
   height: 38px;
@@ -38,7 +38,7 @@
   margin: 0;
 }
 
-.register__title {
+.login__title {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -50,13 +50,13 @@
   margin: 0 0 40px;
 }
 
-.register__form {
+.login__form {
   width: 100%;
   padding: 0;
   margin: 0;
 }
 
-.register__label {
+.login__label {
   display: block;
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
@@ -69,7 +69,7 @@
   margin: 25px 0 5px;
 }
 
-.register__input {
+.login__input {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -86,7 +86,7 @@
   margin: 0;
 }
 
-.register__button {
+.login__button {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -104,7 +104,7 @@
   cursor: pointer;
 }
 
-.register__redirect {
+.login__redirect {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -114,7 +114,7 @@
   margin: 0;
 }
 
-.register__question {
+.login__question {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -126,7 +126,7 @@
   margin: 0 6px 0 0;
 }
 
-.register__link {
+.login__link {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
