@@ -1,0 +1,109 @@
+@import url(../../vendor/inter/inter.css);
+
+.profile {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.profile__page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 215px);
+  padding: 74px 0 70px;
+  margin: 0;
+}
+
+.profile__container {
+  width: 410px;
+  padding: 0;
+  margin: 0;
+}
+
+.profile__title {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 123px;
+}
+
+.profile__form {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.profile__form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  padding: 0 0 16px;
+  border-bottom: 1px solid #E8E8E8;
+  margin: 0;
+}
+
+.profile__form-container:last-child {
+  padding: 17px 0 0;
+  border: none;
+}
+
+.profile__label {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+}
+
+.profile__input {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  color: #000000;
+  width: calc(100% - 50px);
+  padding: 0;
+  border: none;
+  outline: none;
+  margin: 0;
+}
+
+.profile__button {
+  display: block;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  background-color: transparent;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  margin: 0 0 16px;
+  cursor: pointer;
+}
+
+.profile__button_type_exit {
+  font-weight: 500;
+  color: #EE3465;
+  margin: 0;
+}
