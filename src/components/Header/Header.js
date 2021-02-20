@@ -1,7 +1,8 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import Navigation from '../Navigation/Navigation';
+import AuthNavigation from '../AuthNavigation/AuthNavigation';
+import MoviesNavigation from '../MoviesNavigation/MoviesNavigation';
 
 function Header({ loggedIn }) {
   return (
@@ -9,7 +10,8 @@ function Header({ loggedIn }) {
       <Link to="/" className="header__link">
         <img className="header__logo" src={logo} alt="Логотип" />
       </Link>
-      <Navigation loggedIn={loggedIn} />
+      {!loggedIn && <AuthNavigation />}
+      {loggedIn && <MoviesNavigation />}
     </div>
   );
 }

@@ -1,0 +1,64 @@
+@import url(../../vendor/inter/inter.css);
+
+.auth {
+  width: calc(100% - 82px);
+  padding: 0;
+  margin: 0;
+}
+
+.auth__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: baseline;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.auth__item {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.auth__item + .auth__item {
+  margin-left: 30px;
+}
+
+.auth__link {
+  display: block;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  margin: 0;
+}
+
+.auth__link_type_signup {
+  color: #FFFFFF;
+  padding: 0;
+}
+
+.auth__link_type_signin {
+  color: #000000;
+  background-color: #2BE080;
+  padding: 8px 20px;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 462px) {
+  .auth__item + .auth__item {
+    margin-left: 14px;
+  }
+
+  .auth__link {
+    font-size: 10px;
+  }
+
+  .auth__link_type_signin {
+    padding: 5px 12px;
+  }
+}
