@@ -34,6 +34,11 @@
   margin: 0;
 }
 
+.search__input::-webkit-input-placeholder {color:#A0A0A0;}
+.search__input::-moz-placeholder          {color:#A0A0A0;}
+.search__input:-moz-placeholder           {color:#A0A0A0;}
+.search__input:-ms-input-placeholder      {color:#A0A0A0;}
+
 .search__input:focus {
   border: 1px solid #FF6838;
 }

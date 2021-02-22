@@ -1,3 +1,12 @@
+@keyframes appearance {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
 .navigation {
   width: calc(100% - 82px);
   padding: 0;
@@ -175,6 +184,11 @@
     min-height: 100vh;
     padding: 23px 23px 92px;
     margin: 0 0 0 auto;
+    transform: translateX(100%);
+  }
+
+  .navigation__container_visible {
+    animation: appearance 0.5s linear forwards running;
   }
 
   .navigation__list-container {

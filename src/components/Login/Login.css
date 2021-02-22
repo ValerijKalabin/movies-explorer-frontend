@@ -84,6 +84,11 @@
   margin: 0;
 }
 
+.login__input::-webkit-input-placeholder {color:#cccccc;}
+.login__input::-moz-placeholder          {color:#cccccc;}
+.login__input:-moz-placeholder           {color:#cccccc;}
+.login__input:-ms-input-placeholder      {color:#cccccc;}
+
 .login__input:focus {
   border-bottom: 1px solid #000000;
 }

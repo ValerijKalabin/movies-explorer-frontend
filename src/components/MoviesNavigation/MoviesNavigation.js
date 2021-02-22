@@ -21,7 +21,7 @@ function MoviesNavigation() {
         <img className="navigation__icon-menu" src={iconMenu} alt="Меню" />
       </button>
       <div className={`navigation__popup ${isVisiblePopup ? 'navigation__popup_visible' : ''}`}>
-        <div className="navigation__container">
+        <div className={`navigation__container ${isVisiblePopup ? 'navigation__container_visible' : ''}`}>
           <div className="navigation__list-container">
             <button className="navigation__button-close" type="button" onClick={handleClickButtonClose}>
               <img className="navigation__icon-close" src={iconClose} alt="Закрыть" />

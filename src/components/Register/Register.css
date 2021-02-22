@@ -84,6 +84,11 @@
   margin: 0;
 }
 
+.register__input::-webkit-input-placeholder {color:#cccccc;}
+.register__input::-moz-placeholder          {color:#cccccc;}
+.register__input:-moz-placeholder           {color:#cccccc;}
+.register__input:-ms-input-placeholder      {color:#cccccc;}
+
 .register__input:focus {
   border-bottom: 1px solid #000000;
 }
