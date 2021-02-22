@@ -50,7 +50,13 @@ function MoviesNavigation() {
               </li>
             </ul>
           </div>
-          <Link to="/profile" className="navigation__profile">Аккаунт</Link>
+          <NavLink
+            to="/profile"
+            className="navigation__profile"
+            activeClassName="navigation__profile_active"
+          >
+            Аккаунт
+          </NavLink>
         </div>
       </div>
     </nav>

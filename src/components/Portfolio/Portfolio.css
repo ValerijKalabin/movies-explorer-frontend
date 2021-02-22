@@ -50,6 +50,12 @@
   width: 100%;
   padding: 0;
   margin: 0;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
 }
 
 .portfolio__link::after {
