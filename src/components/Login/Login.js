@@ -18,6 +18,9 @@ function Login() {
             name="email"
             type="email"
             placeholder="Ваша почта"
+            required
+            minLength="5"
+            maxLength="30"
           />
           <label className="login__label" htmlFor="password">Пароль</label>
           <input
@@ -26,11 +29,13 @@ function Login() {
             name="password"
             type="password"
             placeholder="Ваш пароль"
+            required
+            minLength="6"
           />
         </form>
       </div>
       <div className="login__container">
-        <button className="login__button" type="submit">Войти</button>
+        <button className="login__button" type="submit" disabled>Войти</button>
         <div className="login__redirect">
           <p className="login__question">Ещё не зарегистрированы?</p>
           <Link to="/signup" className="login__link">Регистрация</Link>

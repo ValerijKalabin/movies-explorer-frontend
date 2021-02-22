@@ -18,6 +18,9 @@ function Register() {
             name="name"
             type="text"
             placeholder="Ваше имя"
+            required
+            minLength="2"
+            maxLength="30"
           />
           <label className="register__label" htmlFor="email">E-mail</label>
           <input
@@ -26,6 +29,9 @@ function Register() {
             name="email"
             type="email"
             placeholder="Ваша почта"
+            required
+            minLength="5"
+            maxLength="30"
           />
           <label className="register__label" htmlFor="password">Пароль</label>
           <input
@@ -34,11 +40,13 @@ function Register() {
             name="password"
             type="password"
             placeholder="Ваш пароль"
+            required
+            minLength="6"
           />
         </form>
       </div>
       <div className="register__container">
-        <button className="register__button" type="submit">Зарегистрироваться</button>
+        <button className="register__button" type="submit" disabled>Зарегистрироваться</button>
         <div className="register__redirect">
           <p className="register__question">Уже зарегистрированы?</p>
           <Link to="/signin" className="register__link">Войти</Link>
