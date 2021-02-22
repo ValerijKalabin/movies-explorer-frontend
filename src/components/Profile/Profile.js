@@ -18,12 +18,14 @@ function Profile() {
               id="name"
               name="name"
               type="text"
+              placeholder="Ваше имя"
             />
             <input
               className="profile__input profile__input_type_email"
               id="email"
               name="email"
               type="email"
+              placeholder="Ваша почта"
             />
           </form>
         </div>
