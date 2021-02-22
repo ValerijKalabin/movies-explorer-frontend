@@ -20,10 +20,24 @@ function AboutMe() {
           </div>
           <ul className="student__list">
             <li className="student__item">
-              <a className="student__link" href="https://www.facebook.com/">Facebook</a>
+              <a
+                className="student__link"
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Facebook
+              </a>
             </li>
             <li className="student__item">
-              <a className="student__link" href="https://github.com/ValerijKalabin">Github</a>
+              <a
+                className="student__link"
+                href="https://github.com/ValerijKalabin"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Github
+              </a>
             </li>
           </ul>
         </div>

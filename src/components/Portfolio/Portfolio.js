@@ -30,7 +30,7 @@ function Portfolio() {
               className="portfolio__link"
               target="_blank"
               rel="noreferrer"
-              href="https://valerijkalabin.github.io/mesto"
+              href="https://wel80.students.nomoreparties.xyz/sign-in"
             >
               Одностраничное приложение
             </a>

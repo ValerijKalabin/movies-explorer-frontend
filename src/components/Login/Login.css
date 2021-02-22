@@ -84,6 +84,10 @@
   margin: 0;
 }
 
+.login__input:focus {
+  border-bottom: 1px solid #000000;
+}
+
 .login__button {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;

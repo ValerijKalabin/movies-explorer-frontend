@@ -84,6 +84,10 @@
   margin: 0;
 }
 
+.register__input:focus {
+  border-bottom: 1px solid #000000;
+}
+
 .register__button {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;

@@ -32,55 +32,80 @@
   color: #000000;
   width: 100%;
   padding: 0;
-  margin: 0 0 123px;
+  margin: 0 0 106px;
 }
 
 .profile__form {
+  position: relative;
   width: 100%;
   padding: 0;
   margin: 0;
 }
 
-.profile__form-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-  width: 100%;
-  padding: 0 0 16px;
-  border-bottom: 1px solid #E8E8E8;
-  margin: 0;
-}
-
-.profile__form-container:last-child {
-  padding: 17px 0 0;
-  border: none;
-}
-
 .profile__label {
+  position: absolute;
+  left: 0;
+  display: block;
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
-  line-height: 13px;
+  line-height: 14px;
   color: #000000;
+  min-height: 14px;
   padding: 0;
   margin: 0;
 }
 
+.profile__label_type_name {
+  top: 17px;
+}
+
+.profile__label_type_email {
+  top: 65px;
+}
+
 .profile__input {
+  display: block;
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
-  line-height: 13px;
+  line-height: 14px;
   text-align: right;
   color: #000000;
-  width: calc(100% - 50px);
-  padding: 0;
-  border: none;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 14px;
+  border-left: none;
+  border-right: none;
   outline: none;
   margin: 0;
+}
+
+.profile__input_type_name {
+  padding: 16px 0 16px 60px;
+  border-top: 1px solid transparent;
+  border-bottom: none;
+}
+
+.profile__input_type_email {
+  padding: 17px 0 17px 60px;
+  border-top: 1px solid #E8E8E8;
+  border-bottom: 1px solid transparent;
+}
+
+.profile__input_type_name:focus {
+  border-top: 1px solid #000000;
+}
+
+.profile__input_type_name:focus + .profile__input_type_email {
+  border-top: 1px solid #000000;
+}
+
+.profile__input_type_email:focus {
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
 }
 
 .profile__button {
@@ -120,7 +145,7 @@
   }
 
   .profile__container {
-    margin: 0 0 210px;
+    margin: 0 0 192px;
   }
 
   .profile__container:last-child {
@@ -128,7 +153,7 @@
   }
 
   .profile__title {
-    margin: 0 0 96px;
+    margin: 0 0 79px;
   }
 }
 
@@ -144,7 +169,7 @@
   }
 
   .profile__title {
-    margin: 0 0 80px;
+    margin: 0 0 63px;
   }
 
   .profile__button {
