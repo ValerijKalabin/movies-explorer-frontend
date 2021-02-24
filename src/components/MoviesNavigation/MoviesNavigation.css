@@ -188,7 +188,7 @@
   }
 
   .navigation__container_visible {
-    animation: appearance 0.5s linear forwards running;
+    animation: appearance 0.3s linear forwards running;
   }
 
   .navigation__list-container {

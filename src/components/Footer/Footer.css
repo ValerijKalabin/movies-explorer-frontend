@@ -29,7 +29,7 @@
 .footer__copyright {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 13px;
   line-height: 16px;
   color: #000000;
@@ -53,7 +53,7 @@
 .footer__link {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 13px;
   line-height: 16px;
   text-decoration: none;
