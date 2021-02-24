@@ -8,7 +8,7 @@ function FilterCheckbox() {
         <rect x="1" y="3" width="34" height="14" rx="7" fill="#C4C4C4"/>
         <circle cx="8" cy="10" r="5" fill="white"/>
       </svg>
-      <p className="filter__title">Короткометражки</p>
+      <span className="filter__title">Короткометражки</span>
     </label>
   );
 }
