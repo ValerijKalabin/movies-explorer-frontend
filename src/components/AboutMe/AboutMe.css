@@ -1,0 +1,205 @@
+.student {
+  background-color: #ffffff;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 110px 70px 100px;
+}
+
+.student__title {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  width: 100%;
+  padding: 0 0 23px;
+  border-bottom: 1px solid #000000;
+  margin: 0 0 66px;
+}
+
+.student__container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.student__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 600px;
+  padding: 0;
+  margin: 0 30px 0 0;
+}
+
+.student__name {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  padding: 0;
+  margin: 0 0 18px;
+}
+
+.student__profession {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #000000;
+  padding: 0;
+  margin: 0 0 26px;
+}
+
+.student__description {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+}
+
+.student__list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.student__item + .student__item {
+  margin-left: 20px;
+}
+
+.student__link {
+  display: block;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.student__link:hover {
+  opacity: 0.7;
+}
+
+.student__photo {
+  display: block;
+  width: 270px;
+  height: 327px;
+  padding: 0;
+  border-radius: 10px;
+  margin: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (max-width: 862px) {
+  .student {
+    padding: 90px 50px;
+  }
+
+  .student__info {
+    max-width: 364px;
+  }
+
+  .student__name {
+    font-size: 40px;
+    line-height: 40px;
+    margin: 0 0 16px;
+  }
+
+  .student__profession {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 20px;
+  }
+
+  .student__description {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+  }
+
+  .student__photo {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 662px) {
+  .student__container {
+    flex-direction: column-reverse;
+  }
+
+  .student__info {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .student__profile {
+    margin: 0 0 40px;
+  }
+
+  .student__name {
+    margin: 0 0 20px;
+  }
+
+  .student__photo {
+    align-self: center;
+    width: 292px;
+    height: 352px;
+    margin: 0 0 40px;
+  }
+}
+
+@media screen and (max-width: 462px) {
+  .student {
+    padding: 70px 14px;
+  }
+
+  .student__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 0 0 28px;
+    margin: 0 0 60px;
+  }
+
+  .student__name {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .student__profession {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__item + .student__item {
+    margin-left: 26px;
+  }
+}

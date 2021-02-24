@@ -1,0 +1,40 @@
+.filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  padding: 0;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.filter__checkbox {
+  display: none;
+}
+
+.filter__checkbox:checked + svg rect {
+  fill: #2BE080;
+}
+
+.filter__checkbox:checked + svg circle {
+  cx: 28;
+}
+
+.filter__title {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+  padding: 0;
+  margin: 0 0 0 12px;
+}
+
+@media screen and (max-width: 462px) {
+  .filter__title {
+    font-size: 11px;
+    margin: 0 0 0 13px;
+  }
+}
