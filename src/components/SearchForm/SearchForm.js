@@ -1,26 +1,31 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm() {
+function SearchForm({
+  value,
+  error,
+  handleChange,
+  handleSubmit
+}) {
   return (
     <div className="search">
-      <form className="search__form" name="search">
+      <form className="search__form" name="search" onSubmit={handleSubmit}>
         <input
           className="search__input"
           type="text"
           name="movie"
           placeholder="Фильм"
-          required
-          minLength="3"
+          value={value}
+          onChange={handleChange}
         />
         <button
           className="search__button"
           type="submit"
-          disabled
         >
           Найти
         </button>
       </form>
+      <span className='search__error'>{error}</span>
       <FilterCheckbox />
     </div>
   );
