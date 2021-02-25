@@ -1,3 +1,12 @@
+const MAX_DURATION_OF_SHORT_FILM = 40;
+
+const movieFilter = (movies, value, checked) => movies.filter((movie) => {
+  const nameLowerCase = movie.nameRU.toLowerCase();
+  const valueLowerCase = value.toLowerCase();
+  const maxDuration = checked ? MAX_DURATION_OF_SHORT_FILM : Infinity;
+  return nameLowerCase.includes(valueLowerCase) && movie.duration <= maxDuration;
+});
+
 const getDurationCaption = (duration) => {
   const tens = Math.abs(duration) % 100;
   const units = tens % 10;
@@ -6,11 +15,5 @@ const getDurationCaption = (duration) => {
   if (units === 1) return 'минута';
   return 'минут';
 };
-
-const movieFilter = (movies, value) => movies.filter((movie) => {
-  const nameLowerCase = movie.nameRU.toLowerCase();
-  const valueLowerCase = value.toLowerCase();
-  return nameLowerCase.includes(valueLowerCase);
-});
 
 export { getDurationCaption, movieFilter };

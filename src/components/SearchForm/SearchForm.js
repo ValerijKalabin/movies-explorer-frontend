@@ -5,7 +5,9 @@ function SearchForm({
   value,
   error,
   handleChange,
-  handleSubmit
+  handleSubmit,
+  isCheckboxChecked,
+  onCheckboxChange
 }) {
   return (
     <div className="search">
@@ -26,7 +28,10 @@ function SearchForm({
         </button>
       </form>
       <span className='search__error'>{error}</span>
-      <FilterCheckbox />
+      <FilterCheckbox
+        isCheckboxChecked={isCheckboxChecked}
+        onCheckboxChange={onCheckboxChange}
+      />
     </div>
   );
 }
