@@ -1,10 +1,12 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList({
   cards,
   isSavedMoviesList,
-  isVisibleButtonMore
+  isVisibleButtonMore,
+  isVisiblePreloader
 }) {
   return (
     <section className="cards">
@@ -27,6 +29,7 @@ function MoviesCardList({
           Ещё
         </button>
       }
+      <Preloader isVisiblePreloader={isVisiblePreloader} />
     </section>
   )
 }
