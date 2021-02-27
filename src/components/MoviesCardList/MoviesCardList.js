@@ -5,21 +5,30 @@ import Preloader from '../Preloader/Preloader';
 function MoviesCardList({
   cards,
   isSavedMoviesList,
+  isVisibleMessage,
   isVisiblePreloader,
   isVisibleButtonMore,
   onButtonMoreClick
 }) {
+  const isVisibleCards = !!cards.length;
   return (
     <section className="cards">
-      <ul className="cards__list">
-        {cards.map((card, index) => (
-          <MoviesCard
-            key={'key' + index}
-            card={card}
-            isSavedMoviesList={isSavedMoviesList}
-          />
-        ))}
-      </ul>
+      {
+        isVisibleMessage &&
+        <p className="cards__message">Ничего не найдено</p>
+      }
+      {
+        isVisibleCards &&
+        <ul className="cards__list">
+          {cards.map((card, index) => (
+            <MoviesCard
+              key={'key' + index}
+              card={card}
+              isSavedMoviesList={isSavedMoviesList}
+            />
+          ))}
+        </ul>
+      }
       {
         isVisibleButtonMore &&
         <button

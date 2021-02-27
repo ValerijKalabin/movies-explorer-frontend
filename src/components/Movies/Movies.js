@@ -13,6 +13,7 @@ function Movies() {
   const [searchError, setSearchError] = useState('');
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
+  const [allMovies, setAllMovies] = useState([]);
   const [searchMovies, setSearchMovies] = useState([]);
   const [filterMovies, setFilterMovies] = useState([]);
   const [currentMovies, setCurrentMovies] = useState([]);
@@ -37,6 +38,7 @@ function Movies() {
       setSearchError('Нужно ввести ключевое слово');
     } else {
       setSearchError('');
+      setAllMovies([]);
       setSearchMovies([]);
       setFilterMovies([]);
       setCurrentMovies([]);
@@ -44,6 +46,7 @@ function Movies() {
       setVisiblePreloader(true);
       api.getMovies()
         .then((movies) => {
+          setAllMovies(movies);
           const moviesFound = helper.searchFilter(movies, searchValueTrim);
           setSearchMovies(moviesFound);
           const moviesFiltered = helper.durationFilter(moviesFound, checkboxChecked);
@@ -79,6 +82,7 @@ function Movies() {
         cards={currentMovies}
         isSavedMoviesList={false}
         isVisiblePreloader={isVisiblePreloader}
+        isVisibleMessage={!currentMovies.length && !!allMovies.length}
         isVisibleButtonMore={filterMovies.length > currentMovies.length}
         onButtonMoreClick={handleButtonMoreClick}
       />
