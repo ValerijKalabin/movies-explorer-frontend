@@ -53,6 +53,7 @@ function Movies() {
         .then((movies) => {
           const moviesFound = helper.searchFilter(movies, searchValueTrim);
           setSearchMovies(moviesFound);
+          localStorage.setItem('movies-found', JSON.stringify(moviesFound));
           const moviesFiltered = helper.durationFilter(moviesFound, checkboxChecked);
           setFilterMovies(moviesFiltered);
           setCurrentMovies(moviesFiltered.slice(0, helper.getMoviesCount()));
@@ -66,6 +67,16 @@ function Movies() {
         });
     }
   }
+
+  useEffect(() => {
+    const localMovies = JSON.parse(localStorage.getItem('movies-found'));
+    if (localMovies) {
+      setSearchMovies(localMovies);
+      setFilterMovies(localMovies);
+      setMoviesCount(helper.getMoviesCount());
+      setCurrentMovies(localMovies.slice(0, helper.getMoviesCount()));
+    }
+  }, []);
 
   useEffect(() => {
     function updateCardsList() {
