@@ -11,9 +11,9 @@ function Movies() {
   const loggedIn = true;
   const [searchValue, setSearchValue] = useState('');
   const [searchError, setSearchError] = useState('');
+  const [notCardsMessage, setNotCardsMessage] = useState('');
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
-  const [allMovies, setAllMovies] = useState([]);
   const [searchMovies, setSearchMovies] = useState([]);
   const [filterMovies, setFilterMovies] = useState([]);
   const [currentMovies, setCurrentMovies] = useState([]);
@@ -30,6 +30,11 @@ function Movies() {
     setCurrentMovies(moviesFiltered.slice(0, moviesCount));
   }
 
+  function handleButtonMoreClick() {
+    setMoviesCount(moviesCount + helper.getAddMoviesCount());
+    setCurrentMovies(filterMovies.slice(0, moviesCount + helper.getAddMoviesCount()));
+  }
+
   function handleSearchSubmit(event) {
     event.preventDefault();
     const searchValueTrim = searchValue.trim();
@@ -38,7 +43,7 @@ function Movies() {
       setSearchError('Нужно ввести ключевое слово');
     } else {
       setSearchError('');
-      setAllMovies([]);
+      setNotCardsMessage('');
       setSearchMovies([]);
       setFilterMovies([]);
       setCurrentMovies([]);
@@ -46,25 +51,20 @@ function Movies() {
       setVisiblePreloader(true);
       api.getMovies()
         .then((movies) => {
-          setAllMovies(movies);
           const moviesFound = helper.searchFilter(movies, searchValueTrim);
           setSearchMovies(moviesFound);
           const moviesFiltered = helper.durationFilter(moviesFound, checkboxChecked);
           setFilterMovies(moviesFiltered);
           setCurrentMovies(moviesFiltered.slice(0, helper.getMoviesCount()));
+          setNotCardsMessage('Ничего не найдено');
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          setNotCardsMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         })
         .finally(() => {
           setVisiblePreloader(false);
         });
     }
-  }
-
-  function handleButtonMoreClick() {
-    setMoviesCount(moviesCount + helper.getAddMoviesCount());
-    setCurrentMovies(filterMovies.slice(0, moviesCount + helper.getAddMoviesCount()));
   }
 
   return (
@@ -82,7 +82,7 @@ function Movies() {
         cards={currentMovies}
         isSavedMoviesList={false}
         isVisiblePreloader={isVisiblePreloader}
-        isVisibleMessage={!currentMovies.length && !!allMovies.length}
+        notCardsMessage={notCardsMessage}
         isVisibleButtonMore={filterMovies.length > currentMovies.length}
         onButtonMoreClick={handleButtonMoreClick}
       />

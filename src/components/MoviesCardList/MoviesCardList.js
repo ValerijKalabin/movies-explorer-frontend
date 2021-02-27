@@ -5,17 +5,18 @@ import Preloader from '../Preloader/Preloader';
 function MoviesCardList({
   cards,
   isSavedMoviesList,
-  isVisibleMessage,
+  notCardsMessage,
   isVisiblePreloader,
   isVisibleButtonMore,
   onButtonMoreClick
 }) {
+  const isVisibleMessage = !cards.length;
   const isVisibleCards = !!cards.length;
   return (
     <section className="cards">
       {
         isVisibleMessage &&
-        <p className="cards__message">Ничего не найдено</p>
+        <p className="cards__message">{notCardsMessage}</p>
       }
       {
         isVisibleCards &&
