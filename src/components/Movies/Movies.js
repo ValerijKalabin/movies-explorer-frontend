@@ -4,8 +4,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import { useState } from 'react';
-import { movieFilter } from '../../utils/helpers';
 import * as api from '../../utils/MoviesApi';
+import * as helper from '../../utils/helpers';
 
 function Movies() {
   const loggedIn = true;
@@ -13,7 +13,10 @@ function Movies() {
   const [searchError, setSearchError] = useState('');
   const [checkboxChecked, setCheckboxChecked] = useState(false);
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
+  const [searchMovies, setSearchMovies] = useState([]);
+  const [filterMovies, setFilterMovies] = useState([]);
   const [currentMovies, setCurrentMovies] = useState([]);
+  const [moviesCount, setMoviesCount] = useState(0);
 
   function handleSearchChange(event) {
     setSearchValue(event.target.value);
@@ -21,23 +24,31 @@ function Movies() {
 
   function handleCheckboxChange() {
     setCheckboxChecked(!checkboxChecked);
+    const moviesFiltered = helper.durationFilter(searchMovies, !checkboxChecked);
+    setFilterMovies(moviesFiltered);
+    setCurrentMovies(moviesFiltered.slice(0, moviesCount));
   }
 
   function handleSearchSubmit(event) {
     event.preventDefault();
     const searchValueTrim = searchValue.trim();
+    setSearchValue(searchValueTrim);
     if (!searchValueTrim) {
       setSearchError('Нужно ввести ключевое слово');
     } else {
       setSearchError('');
+      setSearchMovies([]);
+      setFilterMovies([]);
+      setCurrentMovies([]);
+      setMoviesCount(helper.getMoviesCount());
       setVisiblePreloader(true);
       api.getMovies()
         .then((movies) => {
-          setCurrentMovies(movieFilter(
-            movies,
-            searchValue,
-            checkboxChecked
-          ));
+          const moviesFound = helper.searchFilter(movies, searchValueTrim);
+          setSearchMovies(moviesFound);
+          const moviesFiltered = helper.durationFilter(moviesFound, checkboxChecked);
+          setFilterMovies(moviesFiltered);
+          setCurrentMovies(moviesFiltered.slice(0, helper.getMoviesCount()));
         })
         .catch((error) => {
           console.log(error);
@@ -46,7 +57,11 @@ function Movies() {
           setVisiblePreloader(false);
         });
     }
-    setSearchValue(searchValueTrim);
+  }
+
+  function handleButtonMoreClick() {
+    setMoviesCount(moviesCount + helper.getAddMoviesCount());
+    setCurrentMovies(filterMovies.slice(0, moviesCount + helper.getAddMoviesCount()));
   }
 
   return (
@@ -63,8 +78,9 @@ function Movies() {
       <MoviesCardList
         cards={currentMovies}
         isSavedMoviesList={false}
-        isVisibleButtonMore={true}
         isVisiblePreloader={isVisiblePreloader}
+        isVisibleButtonMore={filterMovies.length > currentMovies.length}
+        onButtonMoreClick={handleButtonMoreClick}
       />
       <Footer />
     </div>

@@ -5,8 +5,9 @@ import Preloader from '../Preloader/Preloader';
 function MoviesCardList({
   cards,
   isSavedMoviesList,
+  isVisiblePreloader,
   isVisibleButtonMore,
-  isVisiblePreloader
+  onButtonMoreClick
 }) {
   return (
     <section className="cards">
@@ -25,6 +26,7 @@ function MoviesCardList({
           className="cards__button"
           type="button"
           name="more"
+          onClick={onButtonMoreClick}
         >
           Ещё
         </button>
