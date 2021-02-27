@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as api from '../../utils/MoviesApi';
 import * as helper from '../../utils/helpers';
 
@@ -66,6 +66,18 @@ function Movies() {
         });
     }
   }
+
+  useEffect(() => {
+    function updateCardsList() {
+      setTimeout(() => {
+        setMoviesCount(helper.getMoviesCount());
+        setCurrentMovies(filterMovies.slice(0, helper.getMoviesCount()));
+      }, 700);
+    }
+
+    window.addEventListener('resize', updateCardsList);
+    return () => window.removeEventListener('resize', updateCardsList);
+  }, [filterMovies]);
 
   return (
     <div className="movies">
