@@ -30,3 +30,10 @@ export const getDurationCaption = (duration) => {
   if (units === 1) return 'минута';
   return 'минут';
 };
+
+export const getErrorMessage = (error) => {
+  if (error.status === 400) return 'Укажите корректные данные пользователя';
+  if (error.status === 401) return 'Неправильные почта или пароль';
+  if (error.status === 404) return 'Ресурс не найден';
+  if (error.status === 409) return 'Пользователь с такой почтой уже зарегистрирован';
+};

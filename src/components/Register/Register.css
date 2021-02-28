@@ -13,10 +13,6 @@
 .register__container {
   width: 396px;
   padding: 0;
-  margin: 0 0 135px;
-}
-
-.register__container:last-child {
   margin: 0;
 }
 
@@ -93,6 +89,50 @@
   border-bottom: 1px solid #000000;
 }
 
+.register__input_error {
+  color: #EE3465;
+}
+
+.register__error {
+  display: block;
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+  width: 100%;
+  min-height: 12px;
+  padding: 6px 0 0;
+  margin: 0;
+}
+
+.register__message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 135px;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.register__message-text {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FF6838;
+  width: 100%;
+  min-height: 17px;
+  padding: 0;
+  margin: 0;
+}
+
 .register__button {
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
@@ -115,6 +155,16 @@
 
 .register__button:hover {
   opacity: 0.8;
+}
+
+.register__button_disabled {
+  color: #C2C2C2;
+  background-color: #F8F8F8;
+  cursor: default;
+}
+
+.register__button_disabled:hover {
+  opacity: 1;
 }
 
 .register__redirect {
@@ -166,7 +216,6 @@
 
   .register__container {
     width: 100%;
-    margin: 0;
   }
 
   .register__logo {
@@ -176,6 +225,12 @@
   .register__title {
     text-align: center;
     margin: 0 0 80px;
+  }
+
+  .register__message-text {
+    font-size: 12px;
+    line-height: 15px;
+    min-height: 15px;
   }
 
   .register__button {
