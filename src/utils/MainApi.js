@@ -36,6 +36,13 @@ export const logout = () => {
     .then(getResponseData);
 }
 
+export const getUser = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET'
+  })
+    .then(getResponseData);
+};
+
 export const getSavedMovies = () => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'GET'
