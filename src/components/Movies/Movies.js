@@ -8,7 +8,6 @@ import * as api from '../../utils/MoviesApi';
 import * as helper from '../../utils/helpers';
 
 function Movies() {
-  const loggedIn = true;
   const [searchValue, setSearchValue] = useState('');
   const [searchError, setSearchError] = useState('');
   const [notCardsMessage, setNotCardsMessage] = useState('');
@@ -93,7 +92,7 @@ function Movies() {
 
   return (
     <div className="movies">
-      <Header loggedIn={loggedIn} />
+      <Header isAuthNav={false} />
       <SearchForm
         value={searchValue}
         error={searchError}

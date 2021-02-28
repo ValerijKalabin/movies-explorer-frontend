@@ -6,11 +6,10 @@ import Footer from '../Footer/Footer';
 import savedCards from '../../utils/savedCards';
 
 function SavedMovies() {
-  const loggedIn = true;
 
   return (
     <div className="saved-movies">
-      <Header loggedIn={loggedIn} />
+      <Header isAuthNav={false} />
       <SearchForm />
       <MoviesCardList
         cards={savedCards}

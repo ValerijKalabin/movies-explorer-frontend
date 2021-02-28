@@ -4,16 +4,16 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as api from '../../utils/MainApi';
 
-function Profile() {
+function Profile({ setCurrentUser }) {
   const [exitButtonCaption, setExitButtonCaption] = useState('Выйти из аккаунта');
 
-  const loggedIn = true;
   const history = useHistory();
 
   function handleClickExitButton() {
     setExitButtonCaption('Выхожу...');
     api.logout()
       .then(() => {
+        setCurrentUser({});
         history.push('/');
       })
       .catch((error) => {
@@ -26,7 +26,7 @@ function Profile() {
 
   return (
     <div className="profile">
-      <Header loggedIn={loggedIn} />
+      <Header isAuthNav={false} />
       <div className="profile__page">
         <div className="profile__container">
           <h1 className="profile__title">Привет, Виталий!</h1>

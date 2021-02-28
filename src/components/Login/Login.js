@@ -1,11 +1,11 @@
 import './Login.css';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as api from '../../utils/MainApi';
 import * as helper from '../../utils/helpers';
 
-function Login() {
+function Login({ setCurrentUser }) {
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailValidity, setEmailValidity] = useState(false);
@@ -40,7 +40,11 @@ function Login() {
     setButtonCaption('Авторизация...');
     api.login(emailValue, passwordValue)
       .then(() => {
-        history.push('/movies');
+        api.getUser()
+          .then((user) => {
+            setCurrentUser(user);
+            history.push('/movies');
+          });
       })
       .catch((error) => {
         setAuthErrorMessage(helper.getErrorMessage(error));
@@ -49,20 +53,6 @@ function Login() {
         setButtonCaption('Войти');
       });
   }
-
-  useEffect(() => {
-    setButtonCaption('Авторизация...');
-    api.getUser()
-      .then(() => {
-        history.push('/movies');
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setButtonCaption('Войти');
-      });
-  }, [history]);
 
   return (
     <div className="login">

@@ -4,14 +4,14 @@ import logo from '../../images/logo.svg';
 import AuthNavigation from '../AuthNavigation/AuthNavigation';
 import MoviesNavigation from '../MoviesNavigation/MoviesNavigation';
 
-function Header({ loggedIn }) {
+function Header({ isAuthNav }) {
   return (
     <div className="header">
       <Link to="/" className="header__link">
         <img className="header__logo" src={logo} alt="Логотип" />
       </Link>
-      {!loggedIn && <AuthNavigation />}
-      {loggedIn && <MoviesNavigation />}
+      {isAuthNav && <AuthNavigation />}
+      {!isAuthNav && <MoviesNavigation />}
     </div>
   );
 }
