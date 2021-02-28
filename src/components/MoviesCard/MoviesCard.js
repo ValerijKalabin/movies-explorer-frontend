@@ -4,7 +4,22 @@ import noImage from '../../images/no-image.jpg';
 import { getDurationCaption } from '../../utils/helpers';
 
 function MoviesCard({ card, isSavedMoviesList }) {
-  const cardImage = card.image ? `https://api.nomoreparties.co${card.image.url}` : noImage;
+  let trailerHref = 'https://www.youtube.com/';
+  if (card.trailerLink) {
+    trailerHref = card.trailerLink;
+  } else if (card.trailer) {
+    trailerHref = card.trailer;
+  }
+
+  let cardImage = noImage;
+  if (card.image && card.image.url) {
+    cardImage = `https://api.nomoreparties.co${card.image.url}`;
+  } else if (card.image) {
+    cardImage = `https://api.nomoreparties.co${card.image}`;
+  }
+
+  const isCardSaved = card.saved ? card.saved : false;
+
   return (
     <li className="card">
       <div className="card__info">
@@ -13,19 +28,18 @@ function MoviesCard({ card, isSavedMoviesList }) {
       </div>
       <a
         className="card__link"
-        href={card.trailerLink}
+        href={trailerHref}
         target="_blank"
         rel="noreferrer"
       >
         <img className="card__image" src={cardImage} alt={card.nameRU} />
       </a>
       <button
-        className={`card__button ${card.caption && !isSavedMoviesList ? 'card__button_disabled' : ''}`}
-        disabled={card.caption && !isSavedMoviesList}
+        className={`card__button ${!isSavedMoviesList && isCardSaved ? 'card__button_saved' : ''}`}
         type="button"
       >
-        { !isSavedMoviesList && card.caption && <img src={imageSaved} alt="Сохранено" /> }
-        { !isSavedMoviesList && !card.caption && 'Сохранить' }
+        { !isSavedMoviesList && isCardSaved && <img src={imageSaved} alt="Сохранено" /> }
+        { !isSavedMoviesList && !isCardSaved && 'Сохранить' }
         {
           isSavedMoviesList &&
           <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">

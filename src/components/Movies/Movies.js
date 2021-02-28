@@ -70,11 +70,12 @@ function Movies() {
 
   useEffect(() => {
     const localMovies = JSON.parse(localStorage.getItem('movies-found'));
-    if (localMovies) {
+    if (localMovies && localMovies.length) {
       setSearchMovies(localMovies);
       setFilterMovies(localMovies);
       setMoviesCount(helper.getMoviesCount());
       setCurrentMovies(localMovies.slice(0, helper.getMoviesCount()));
+      setNotCardsMessage('Ничего не найдено');
     }
   }, []);
 

@@ -96,9 +96,12 @@
   fill: #FFFFFF;
 }
 
-.card__button_disabled {
+.card__button_saved {
   background-color: #EE3465;
-  cursor: default;
+}
+
+.card__button_saved:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 862px) {

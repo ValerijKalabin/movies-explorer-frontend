@@ -1,25 +1,45 @@
-import cardImage1 from '../images/cards/card-image-1.png';
-import cardImage2 from '../images/cards/card-image-2.png';
-import cardImage3 from '../images/cards/card-image-3.png';
-
 const savedCards = [
   {
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: cardImage1,
-    saved: true
+    country: 'Россия',
+    director: 'Valery',
+    duration: 79,
+    year: '2020',
+    description: '',
+    image: '/uploads/12032_770x433_74026cdeb6.jpeg',
+    thumbnail: '/uploads/12032_770x433_74026cdeb6.jpeg',
+    trailer: 'https://www.youtube.com/watch?v=BMnoLW1RZ8I',
+    owner: '6027a5f248448611fa6a8208',
+    movieId: 82,
+    nameRU: 'Бэнкси уделывает Нью-Йорк',
+    nameEN: 'Banksy takes down New York'
   },
   {
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: cardImage2,
-    saved: true
+    country: 'Россия',
+    director: 'Valery',
+    duration: 79,
+    year: '2020',
+    description: '',
+    image: '/uploads/12032_770x433_74026cdeb6.jpeg',
+    thumbnail: '/uploads/12032_770x433_74026cdeb6.jpeg',
+    trailer: 'https://www.youtube.com/watch?v=BMnoLW1RZ8I',
+    owner: '6027a5f248448611fa6a8208',
+    movieId: 82,
+    nameRU: 'Бэнкси уделывает Нью-Йорк',
+    nameEN: 'Banksy takes down New York'
   },
   {
-    title: 'В погоне за Бенкси',
-    duration: '27 минут',
-    image: cardImage3,
-    saved: false
+    country: 'Россия',
+    director: 'Valery',
+    duration: 79,
+    year: '2020',
+    description: '',
+    image: '/uploads/12032_770x433_74026cdeb6.jpeg',
+    thumbnail: '/uploads/12032_770x433_74026cdeb6.jpeg',
+    trailer: 'https://www.youtube.com/watch?v=BMnoLW1RZ8I',
+    owner: '6027a5f248448611fa6a8208',
+    movieId: 82,
+    nameRU: 'Бэнкси уделывает Нью-Йорк',
+    nameEN: 'Banksy takes down New York'
   }
 ];
 
