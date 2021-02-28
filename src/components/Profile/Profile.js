@@ -1,8 +1,28 @@
 import './Profile.css';
 import Header from '../Header/Header';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import * as api from '../../utils/MainApi';
 
 function Profile() {
+  const [exitButtonCaption, setExitButtonCaption] = useState('Выйти из аккаунта');
+
   const loggedIn = true;
+  const history = useHistory();
+
+  function handleClickExitButton() {
+    setExitButtonCaption('Выхожу...');
+    api.logout()
+      .then(() => {
+        history.push('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setExitButtonCaption('Выйти из аккаунта');
+      });
+  }
 
   return (
     <div className="profile">
@@ -37,7 +57,13 @@ function Profile() {
         </div>
         <div className="profile__container">
           <button className="profile__button" type="submit" disabled>Редактировать</button>
-          <button className="profile__button profile__button_type_exit" type="button">Выйти из аккаунта</button>
+          <button
+            className="profile__button profile__button_type_exit"
+            type="button"
+            onClick={handleClickExitButton}
+          >
+            {exitButtonCaption}
+          </button>
         </div>
       </div>
     </div>
