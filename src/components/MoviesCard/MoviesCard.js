@@ -1,24 +1,17 @@
 import './MoviesCard.css';
 import imageSaved from '../../images/card-saved.svg';
-import noImage from '../../images/no-image.jpg';
 import { getDurationCaption } from '../../utils/helpers';
+import { useLocation } from 'react-router-dom';
+import * as helpers from '../../utils/helpers';
 
-function MoviesCard({ card, isSavedMoviesList }) {
-  let trailerHref = 'https://www.youtube.com/';
-  if (card.trailerLink) {
-    trailerHref = card.trailerLink;
-  } else if (card.trailer) {
-    trailerHref = card.trailer;
-  }
-
-  let cardImage = noImage;
-  if (card.image && card.image.url) {
-    cardImage = `https://api.nomoreparties.co${card.image.url}`;
-  } else if (card.image) {
-    cardImage = `https://api.nomoreparties.co${card.image}`;
-  }
-
+function MoviesCard({ card, onClickCardButton }) {
+  const location = useLocation();
+  const isSavedMoviesList = location.pathname === '/saved-movies';
   const isCardSaved = card.saved ? card.saved : false;
+
+  function handleClickButton() {
+    onClickCardButton(card);
+  }
 
   return (
     <li className="card">
@@ -28,15 +21,20 @@ function MoviesCard({ card, isSavedMoviesList }) {
       </div>
       <a
         className="card__link"
-        href={trailerHref}
+        href={helpers.getTrailerHref(card)}
         target="_blank"
         rel="noreferrer"
       >
-        <img className="card__image" src={cardImage} alt={card.nameRU} />
+        <img
+          className="card__image"
+          src={helpers.getCardImage(card)}
+          alt={card.nameRU}
+        />
       </a>
       <button
         className={`card__button ${!isSavedMoviesList && isCardSaved ? 'card__button_saved' : ''}`}
         type="button"
+        onClick={handleClickButton}
       >
         { !isSavedMoviesList && isCardSaved && <img src={imageSaved} alt="Сохранено" /> }
         { !isSavedMoviesList && !isCardSaved && 'Сохранить' }

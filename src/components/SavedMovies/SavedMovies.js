@@ -3,18 +3,18 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import savedCards from '../../utils/savedCards';
 
-function SavedMovies() {
-
+function SavedMovies({ selectedMovies, onClickCardButton }) {
   return (
     <div className="saved-movies">
       <Header />
       <SearchForm />
       <MoviesCardList
-        cards={savedCards}
-        isSavedMoviesList={true}
+        cards={selectedMovies}
+        notCardsMessage=''
+        isVisiblePreloader={false}
         isVisibleButtonMore={false}
+        onClickCardButton={onClickCardButton}
       />
       <Footer />
     </div>

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import * as api from '../../utils/MoviesApi';
 import * as helper from '../../utils/helpers';
 
-function Movies() {
+function Movies({ onClickCardButton }) {
   const [searchValue, setSearchValue] = useState('');
   const [searchError, setSearchError] = useState('');
   const [notCardsMessage, setNotCardsMessage] = useState('');
@@ -29,7 +29,7 @@ function Movies() {
     setCurrentMovies(moviesFiltered.slice(0, moviesCount));
   }
 
-  function handleButtonMoreClick() {
+  function handleClickMoreButton() {
     setMoviesCount(moviesCount + helper.getAddMoviesCount());
     setCurrentMovies(filterMovies.slice(0, moviesCount + helper.getAddMoviesCount()));
   }
@@ -103,11 +103,11 @@ function Movies() {
       />
       <MoviesCardList
         cards={currentMovies}
-        isSavedMoviesList={false}
-        isVisiblePreloader={isVisiblePreloader}
         notCardsMessage={notCardsMessage}
+        isVisiblePreloader={isVisiblePreloader}
         isVisibleButtonMore={filterMovies.length > currentMovies.length}
-        onButtonMoreClick={handleButtonMoreClick}
+        onClickMoreButton={handleClickMoreButton}
+        onClickCardButton={onClickCardButton}
       />
       <Footer />
     </div>

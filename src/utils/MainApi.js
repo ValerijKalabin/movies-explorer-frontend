@@ -43,6 +43,37 @@ export const getUser = () => {
     .then(getResponseData);
 };
 
+export const saveMovie = (movie, userId) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: movie.image ? `https://api.nomoreparties.co${movie.image.url}` : 'https://images.puella-magi.net/thumb/2/27/No_Image_Wide.svg/1600px-No_Image_Wide.svg.png?20110202071158',
+      thumbnail: movie.image ?`https://api.nomoreparties.co${movie.image.url}` : 'https://images.puella-magi.net/thumb/2/27/No_Image_Wide.svg/1600px-No_Image_Wide.svg.png?20110202071158',
+      trailer: movie.trailerLink,
+      owner: userId,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN
+    })
+  })
+    .then(getResponseData);
+};
+
+export const deleteMovie = (movieId) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
+    method: 'DELETE'
+  })
+    .then(getResponseData);
+}
+
 export const getSavedMovies = () => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'GET'

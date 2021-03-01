@@ -4,11 +4,11 @@ import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList({
   cards,
-  isSavedMoviesList,
   notCardsMessage,
   isVisiblePreloader,
   isVisibleButtonMore,
-  onButtonMoreClick
+  onClickMoreButton,
+  onClickCardButton
 }) {
   const isVisibleMessage = !cards.length;
   const isVisibleCards = !!cards.length;
@@ -21,11 +21,11 @@ function MoviesCardList({
       {
         isVisibleCards &&
         <ul className="cards__list">
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <MoviesCard
-              key={'key' + index}
+              key={card._id}
               card={card}
-              isSavedMoviesList={isSavedMoviesList}
+              onClickCardButton={onClickCardButton}
             />
           ))}
         </ul>
@@ -36,7 +36,7 @@ function MoviesCardList({
           className="cards__button"
           type="button"
           name="more"
-          onClick={onButtonMoreClick}
+          onClick={onClickMoreButton}
         >
           Ещё
         </button>

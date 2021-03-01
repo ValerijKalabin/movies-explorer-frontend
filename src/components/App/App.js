@@ -14,12 +14,38 @@ import * as api from '../../utils/MainApi';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+  const [selectedMovies, setSelectedMovies] = useState([]);
   const loggedIn = !!currentUser.email;
 
+  function handleClickCardButton(movie) {
+    if(!movie.owner) {
+      api.saveMovie(movie, currentUser._id)
+        .then((selectedMovie) => {
+          setSelectedMovies([selectedMovie, ...selectedMovies]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      api.deleteMovie(movie._id)
+        .then(() => {
+          const newSelectedMovies = selectedMovies.filter((selectedMovie) => selectedMovie._id !== movie._id);
+          setSelectedMovies(newSelectedMovies);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
+
   useEffect(() => {
-    api.getUser()
-      .then((user) => {
+    Promise.all([
+      api.getUser(),
+      api.getSavedMovies()
+    ])
+      .then(([user, movies]) => {
         setCurrentUser(user);
+        setSelectedMovies(movies.reverse());
       })
       .catch((error) => {
         console.log(error);
@@ -36,10 +62,13 @@ function App() {
           <ProtectedRoute
             path="/movies"
             component={Movies}
+            onClickCardButton={handleClickCardButton}
           />
           <ProtectedRoute
             path="/saved-movies"
             component={SavedMovies}
+            selectedMovies={selectedMovies}
+            onClickCardButton={handleClickCardButton}
           />
           <ProtectedRoute
             path="/profile"

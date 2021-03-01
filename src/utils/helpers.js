@@ -1,3 +1,5 @@
+import noImage from '../images/no-image.jpg';
+
 const MAX_DURATION_OF_SHORT_FILM = 40;
 
 export const durationFilter = (movies, checked) => movies.filter((movie) => {
@@ -36,4 +38,17 @@ export const getErrorMessage = (error) => {
   if (error.status === 401) return 'Неправильные почта или пароль';
   if (error.status === 404) return 'Ресурс не найден';
   if (error.status === 409) return 'Пользователь с такой почтой уже зарегистрирован';
+  return 'Ошибка сервера';
+};
+
+export const getTrailerHref = (card) => {
+  if (card.trailerLink) return card.trailerLink;
+  if (card.trailer) return card.trailer;
+  return 'https://www.youtube.com/';
+};
+
+export const getCardImage = (card) => {
+  if (card.image && card.image.url) return `https://api.nomoreparties.co${card.image.url}`;
+  if (card.image) return card.image;
+  return noImage;
 };
