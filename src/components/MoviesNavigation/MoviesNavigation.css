@@ -31,6 +31,10 @@
   margin: 0;
 }
 
+.navigation__icon-menu_style_promo path {
+  fill: #FFFFFF;
+}
+
 .navigation__popup {
   padding: 0;
   margin: 0;
@@ -118,6 +122,10 @@
   font-weight: 500;
 }
 
+.navigation__link_style_promo {
+  color: #FFFFFF;
+}
+
 .navigation__profile {
   position: relative;
   display: block;
@@ -154,6 +162,10 @@
 
 .navigation__profile_active {
   font-weight: 500;
+}
+
+.navigation__profile_style_promo {
+  color: #FFFFFF;
 }
 
 @media screen and (max-width: 862px) {
@@ -225,6 +237,14 @@
 
   .navigation__link_active {
     border-bottom: 2px solid #000000;
+  }
+
+  .navigation__link_style_promo {
+    color: #000000;
+  }
+
+  .navigation__profile_style_promo {
+    color: #000000;
   }
 }
 

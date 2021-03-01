@@ -9,7 +9,7 @@ function SavedMovies() {
 
   return (
     <div className="saved-movies">
-      <Header isAuthNav={false} />
+      <Header />
       <SearchForm />
       <MoviesCardList
         cards={savedCards}

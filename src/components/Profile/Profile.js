@@ -26,7 +26,7 @@ function Profile({ setCurrentUser }) {
 
   return (
     <div className="profile">
-      <Header isAuthNav={false} />
+      <Header />
       <div className="profile__page">
         <div className="profile__container">
           <h1 className="profile__title">Привет, Виталий!</h1>

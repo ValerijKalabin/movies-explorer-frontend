@@ -92,7 +92,7 @@ function Movies() {
 
   return (
     <div className="movies">
-      <Header isAuthNav={false} />
+      <Header />
       <SearchForm
         value={searchValue}
         error={searchError}
