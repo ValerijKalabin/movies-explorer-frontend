@@ -1,5 +1,4 @@
 import './MoviesCard.css';
-import imageSaved from '../../images/card-saved.svg';
 import { getDurationCaption } from '../../utils/helpers';
 import { useLocation } from 'react-router-dom';
 import * as helpers from '../../utils/helpers';
@@ -35,7 +34,12 @@ function MoviesCard({ card, onClickCardButton }) {
         type="button"
         onClick={handleClickButton}
       >
-        { !isSavedMoviesList && card.isSaved && <img src={imageSaved} alt="Сохранено" /> }
+        {
+          !isSavedMoviesList && card.isSaved &&
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 3.75L3.81905 6L9 1.5" stroke="white" stroke-width="1.5"/>
+          </svg>
+        }
         { !isSavedMoviesList && !card.isSaved && 'Сохранить' }
         {
           isSavedMoviesList &&

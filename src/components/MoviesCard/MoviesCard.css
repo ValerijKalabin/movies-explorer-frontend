@@ -101,7 +101,11 @@
 }
 
 .card__button_saved:hover {
-  opacity: 0.8;
+  background-color: #F9F9F9;
+}
+
+.card__button_saved:hover svg path {
+  stroke: black;
 }
 
 @media screen and (max-width: 862px) {

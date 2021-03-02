@@ -23,7 +23,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const loggedIn = !!currentUser.email;
 
-  function saveSearchMovies (moviesFound) {
+  function saveSearchMovies(moviesFound) {
     const moviesVerified = moviesFound.map((movieFound) => {
       const movieFoundSelected = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movieFound.id);
       if(movieFoundSelected) {
@@ -35,6 +35,18 @@ function App() {
     });
     setSearchMovies(moviesVerified);
     localStorage.setItem('movies-found', JSON.stringify(moviesVerified));
+  };
+
+  function adjustSearchMovies(movie, isSaved) {
+    const newSearchMovies = searchMovies.map((searchMovie) => {
+      const movieId = movie.id || movie.movieId;
+      if (searchMovie.id === movieId) {
+        searchMovie.isSaved = isSaved;
+      }
+      return searchMovie;
+    });
+    setSearchMovies(newSearchMovies);
+    localStorage.setItem('movies-found', JSON.stringify(newSearchMovies));
   };
 
   function handleMoviesCheckboxChange() {
@@ -60,19 +72,23 @@ function App() {
   }
 
   function handleClickCardButton(movie) {
-    if(!movie.owner) {
+    if(!movie.isSaved && !movie.owner) {
       api.saveMovie(movie, currentUser._id)
         .then((selectedMovie) => {
           setSelectedMovies([selectedMovie, ...selectedMovies]);
+          adjustSearchMovies(movie, true);
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
-      api.deleteMovie(movie._id)
+      const movieId = movie.id || movie.movieId;
+      const deletedMovie = selectedMovies.find((selectedMovie) => selectedMovie.movieId === movieId);
+      api.deleteMovie(deletedMovie._id)
         .then(() => {
-          const newSelectedMovies = selectedMovies.filter((selectedMovie) => selectedMovie._id !== movie._id);
+          const newSelectedMovies = selectedMovies.filter((selectedMovie) => selectedMovie.movieId !== movieId);
           setSelectedMovies(newSelectedMovies);
+          adjustSearchMovies(movie, false);
         })
         .catch((error) => {
           console.log(error);
