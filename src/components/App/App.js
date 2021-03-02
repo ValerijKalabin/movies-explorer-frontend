@@ -23,6 +23,20 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const loggedIn = !!currentUser.email;
 
+  function saveSearchMovies (moviesFound) {
+    const moviesVerified = moviesFound.map((movieFound) => {
+      const movieFoundSelected = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movieFound.id);
+      if(movieFoundSelected) {
+        movieFound.isSaved = true;
+      } else {
+        movieFound.isSaved = false;
+      }
+      return movieFound;
+    });
+    setSearchMovies(moviesVerified);
+    localStorage.setItem('movies-found', JSON.stringify(moviesVerified));
+  };
+
   function handleMoviesCheckboxChange() {
     setMoviesCheckboxChecked(!isMoviesCheckboxChecked);
   }
@@ -34,8 +48,7 @@ function App() {
     moviesApi.getMovies()
       .then((movies) => {
         const moviesFound = helper.searchFilter(movies, value);
-        setSearchMovies(moviesFound);
-        localStorage.setItem('movies-found', JSON.stringify(moviesFound));
+        saveSearchMovies(moviesFound);
         setMessageNoMovies('Ничего не найдено');
       })
       .catch(() => {

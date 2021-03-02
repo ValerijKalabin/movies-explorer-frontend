@@ -7,7 +7,6 @@ import * as helpers from '../../utils/helpers';
 function MoviesCard({ card, onClickCardButton }) {
   const location = useLocation();
   const isSavedMoviesList = location.pathname === '/saved-movies';
-  const isCardSaved = card.saved ? card.saved : false;
 
   function handleClickButton() {
     onClickCardButton(card);
@@ -32,12 +31,12 @@ function MoviesCard({ card, onClickCardButton }) {
         />
       </a>
       <button
-        className={`card__button ${!isSavedMoviesList && isCardSaved ? 'card__button_saved' : ''}`}
+        className={`card__button ${!isSavedMoviesList && card.isSaved ? 'card__button_saved' : ''}`}
         type="button"
         onClick={handleClickButton}
       >
-        { !isSavedMoviesList && isCardSaved && <img src={imageSaved} alt="Сохранено" /> }
-        { !isSavedMoviesList && !isCardSaved && 'Сохранить' }
+        { !isSavedMoviesList && card.isSaved && <img src={imageSaved} alt="Сохранено" /> }
+        { !isSavedMoviesList && !card.isSaved && 'Сохранить' }
         {
           isSavedMoviesList &&
           <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
