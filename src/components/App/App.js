@@ -11,11 +11,40 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import * as api from '../../utils/MainApi';
+import * as moviesApi from '../../utils/MoviesApi';
+import * as helper from '../../utils/helpers';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
+  const [isMoviesCheckboxChecked, setMoviesCheckboxChecked] = useState(false);
+  const [isVisiblePreloader, setVisiblePreloader] = useState(false);
+  const [messageNoMovies, setMessageNoMovies] = useState('');
+  const [searchMovies, setSearchMovies] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
   const loggedIn = !!currentUser.email;
+
+  function handleMoviesCheckboxChange() {
+    setMoviesCheckboxChecked(!isMoviesCheckboxChecked);
+  }
+
+  function handleMoviesSearchSubmit(value) {
+    setMessageNoMovies('');
+    setSearchMovies([]);
+    setVisiblePreloader(true);
+    moviesApi.getMovies()
+      .then((movies) => {
+        const moviesFound = helper.searchFilter(movies, value);
+        setSearchMovies(moviesFound);
+        localStorage.setItem('movies-found', JSON.stringify(moviesFound));
+        setMessageNoMovies('Ничего не найдено');
+      })
+      .catch(() => {
+        setMessageNoMovies('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+      })
+      .finally(() => {
+        setVisiblePreloader(false);
+      });
+  }
 
   function handleClickCardButton(movie) {
     if(!movie.owner) {
@@ -39,6 +68,11 @@ function App() {
   }
 
   useEffect(() => {
+    const localMovies = JSON.parse(localStorage.getItem('movies-found'));
+    if (localMovies && localMovies.length) {
+      setSearchMovies(localMovies);
+      setMessageNoMovies('Ничего не найдено');
+    }
     Promise.all([
       api.getUser(),
       api.getSavedMovies()
@@ -62,7 +96,13 @@ function App() {
           <ProtectedRoute
             path="/movies"
             component={Movies}
+            isMoviesCheckboxChecked={isMoviesCheckboxChecked}
+            onMoviesCheckboxChange={handleMoviesCheckboxChange}
+            onMoviesSearchSubmit={handleMoviesSearchSubmit}
             onClickCardButton={handleClickCardButton}
+            isVisiblePreloader={isVisiblePreloader}
+            messageNoMovies={messageNoMovies}
+            searchMovies={searchMovies}
           />
           <ProtectedRoute
             path="/saved-movies"

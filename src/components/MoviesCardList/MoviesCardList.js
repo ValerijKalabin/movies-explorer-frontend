@@ -4,7 +4,7 @@ import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList({
   cards,
-  notCardsMessage,
+  messageNoMovies,
   isVisiblePreloader,
   isVisibleButtonMore,
   onClickMoreButton,
@@ -16,7 +16,7 @@ function MoviesCardList({
     <section className="cards">
       {
         isVisibleMessage &&
-        <p className="cards__message">{notCardsMessage}</p>
+        <p className="cards__message">{messageNoMovies}</p>
       }
       {
         isVisibleCards &&

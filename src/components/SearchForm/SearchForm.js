@@ -1,14 +1,31 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useState } from 'react';
 
 function SearchForm({
-  value,
-  error,
-  handleChange,
-  handleSubmit,
+  onSearchSubmit,
   isCheckboxChecked,
   onCheckboxChange
 }) {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState('');
+
+  function handleChange(event) {
+    setValue(event.target.value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const valueTrim = value.trim();
+    setValue(valueTrim);
+    if(!valueTrim) {
+      setError('Нужно ввести ключевое слово');
+    } else {
+      setError('');
+      onSearchSubmit(valueTrim);
+    }
+  }
+
   return (
     <div className="search">
       <form className="search__form" name="search" onSubmit={handleSubmit}>

@@ -11,7 +11,7 @@ function SavedMovies({ selectedMovies, onClickCardButton }) {
       <SearchForm />
       <MoviesCardList
         cards={selectedMovies}
-        notCardsMessage=''
+        messageNoMovies=''
         isVisiblePreloader={false}
         isVisibleButtonMore={false}
         onClickCardButton={onClickCardButton}
