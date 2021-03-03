@@ -15,7 +15,6 @@ import * as moviesApi from '../../utils/MoviesApi';
 import * as helper from '../../utils/helpers';
 
 function App() {
-  const [isMoviesCheckboxChecked, setMoviesCheckboxChecked] = useState(false);
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
   const [messageNoMovies, setMessageNoMovies] = useState('');
   const [searchMovies, setSearchMovies] = useState([]);
@@ -48,10 +47,6 @@ function App() {
     setSearchMovies(newSearchMovies);
     localStorage.setItem('movies-found', JSON.stringify(newSearchMovies));
   };
-
-  function handleMoviesCheckboxChange() {
-    setMoviesCheckboxChecked(!isMoviesCheckboxChecked);
-  }
 
   function handleMoviesSearchSubmit(value) {
     setMessageNoMovies('');
@@ -125,8 +120,6 @@ function App() {
           <ProtectedRoute
             path="/movies"
             component={Movies}
-            isMoviesCheckboxChecked={isMoviesCheckboxChecked}
-            onMoviesCheckboxChange={handleMoviesCheckboxChange}
             onMoviesSearchSubmit={handleMoviesSearchSubmit}
             onClickCardButton={handleClickCardButton}
             isVisiblePreloader={isVisiblePreloader}

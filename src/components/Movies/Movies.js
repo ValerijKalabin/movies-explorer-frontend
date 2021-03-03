@@ -7,27 +7,30 @@ import { useEffect, useState } from 'react';
 import * as helper from '../../utils/helpers';
 
 function Movies({
-    isMoviesCheckboxChecked,
-    onMoviesCheckboxChange,
     onMoviesSearchSubmit,
     onClickCardButton,
     isVisiblePreloader,
     messageNoMovies,
     searchMovies
 }) {
+  const [isCheckboxChecked, setCheckboxChecked] = useState(false);
   const [moviesCount, setMoviesCount] = useState(helper.getMoviesCount());
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [currentMovies, setCurrentMovies] = useState([]);
+
+  function handleCheckboxChange() {
+    setCheckboxChecked(!isCheckboxChecked);
+  }
 
   function handleClickMoreButton() {
     setMoviesCount(moviesCount + helper.getAddMoviesCount());
   }
 
   useEffect(() => {
-    const moviesFiltered = helper.durationFilter(searchMovies, isMoviesCheckboxChecked);
+    const moviesFiltered = helper.durationFilter(searchMovies, isCheckboxChecked);
     setFilteredMovies(moviesFiltered);
     setCurrentMovies(moviesFiltered.slice(0, moviesCount));
-  }, [searchMovies, isMoviesCheckboxChecked, moviesCount]);
+  }, [searchMovies, isCheckboxChecked, moviesCount]);
 
   useEffect(() => {
     function updateCardsList() {
@@ -36,7 +39,6 @@ function Movies({
         setCurrentMovies(filteredMovies.slice(0, helper.getMoviesCount()));
       }, 700);
     }
-
     window.addEventListener('resize', updateCardsList);
     return () => window.removeEventListener('resize', updateCardsList);
   }, [filteredMovies]);
@@ -46,8 +48,8 @@ function Movies({
       <Header />
       <SearchForm
         onSearchSubmit={onMoviesSearchSubmit}
-        isCheckboxChecked={isMoviesCheckboxChecked}
-        onCheckboxChange={onMoviesCheckboxChange}
+        isCheckboxChecked={isCheckboxChecked}
+        onCheckboxChange={handleCheckboxChange}
       />
       <MoviesCardList
         cards={currentMovies}
