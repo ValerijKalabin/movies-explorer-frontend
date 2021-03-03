@@ -5,7 +5,7 @@ import { useState } from 'react';
 import * as api from '../../utils/MainApi';
 import * as helper from '../../utils/helpers';
 
-function Register({ setCurrentUser }) {
+function Register({ onRegisterSubmit }) {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [nameValidity, setNameValidity] = useState(false);
@@ -53,9 +53,12 @@ function Register({ setCurrentUser }) {
       .then(() => {
         api.login(emailValue, passwordValue)
           .then(() => {
-            api.getUser()
-              .then((user) => {
-                setCurrentUser(user);
+            Promise.all([
+              api.getUser(),
+              api.getSavedMovies()
+            ])
+              .then(([user, movies]) => {
+                onRegisterSubmit(user, movies);
                 history.push('/movies');
               });
           });

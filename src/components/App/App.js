@@ -48,6 +48,11 @@ function App() {
     localStorage.setItem('movies-found', JSON.stringify(newSearchMovies));
   };
 
+  function handleAuthSubmit(user, movies) {
+    setCurrentUser(user);
+    setSelectedMovies(movies.reverse());
+  }
+
   function handleMoviesSearchSubmit(value) {
     setMessageNoMovies('');
     setSearchMovies([]);
@@ -140,14 +145,14 @@ function App() {
           <Route path="/signup">
             {
               !loggedIn
-              ? <Register setCurrentUser={setCurrentUser} />
+              ? <Register onRegisterSubmit={handleAuthSubmit} />
               : <Redirect to="./movies" />
             }
           </Route>
           <Route path="/signin">
             {
               !loggedIn
-              ? <Login setCurrentUser={setCurrentUser} />
+              ? <Login onLoginSubmit={handleAuthSubmit} />
               : <Redirect to="./movies" />
             }
           </Route>

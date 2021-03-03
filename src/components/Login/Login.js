@@ -5,7 +5,7 @@ import { useState } from 'react';
 import * as api from '../../utils/MainApi';
 import * as helper from '../../utils/helpers';
 
-function Login({ setCurrentUser }) {
+function Login({ onLoginSubmit }) {
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailValidity, setEmailValidity] = useState(false);
@@ -40,9 +40,12 @@ function Login({ setCurrentUser }) {
     setButtonCaption('Авторизация...');
     api.login(emailValue, passwordValue)
       .then(() => {
-        api.getUser()
-          .then((user) => {
-            setCurrentUser(user);
+        Promise.all([
+          api.getUser(),
+          api.getSavedMovies()
+        ])
+          .then(([user, movies]) => {
+            onLoginSubmit(user, movies);
             history.push('/movies');
           });
       })

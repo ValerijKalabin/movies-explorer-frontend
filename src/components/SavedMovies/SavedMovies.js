@@ -35,7 +35,7 @@ function SavedMovies({ selectedMovies, onClickCardButton }) {
       />
       <MoviesCardList
         cards={currentMovies}
-        messageNoMovies=''
+        messageNoMovies='Нет сохранённых фильмов'
         isVisiblePreloader={false}
         isVisibleButtonMore={false}
         onClickCardButton={onClickCardButton}

@@ -43,6 +43,17 @@ export const getUser = () => {
     .then(getResponseData);
 };
 
+export const updateProfile = (name, email) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name, email})
+  })
+    .then(getResponseData);
+}
+
 export const saveMovie = (movie, userId) => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
