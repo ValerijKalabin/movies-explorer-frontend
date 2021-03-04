@@ -36,6 +36,7 @@ export const getDurationCaption = (duration) => {
 export const getErrorMessage = (error) => {
   if (error.status === 400) return 'Укажите корректные данные пользователя';
   if (error.status === 401) return 'Неправильные почта или пароль';
+  if (error.status === 403) return 'Вы не можете удалить этот фильм';
   if (error.status === 404) return 'Ресурс не найден';
   if (error.status === 409) return 'Пользователь с такой почтой уже зарегистрирован';
   return 'Ошибка сервера';

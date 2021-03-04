@@ -11,7 +11,7 @@ function Profile({ setCurrentUser }) {
 
   const [exitButtonCaption, setExitButtonCaption] = useState('Выйти из аккаунта');
   const [submitButtonCaption, setSubmitButtonCaption] = useState('Сохранить');
-  const [messageResultEdit, setMessageRusultEdit] = useState('');
+  const [requestResultMessage, setRequestResultMessage] = useState('');
   const [isVisibleSubmitButton, setVisibleSubmitButton] = useState(false);
   const [isDisabledInput, setDisabledInput] = useState(true);
   const [updateProfileStatus, setUpdateProfileStatus] = useState(false);
@@ -30,13 +30,14 @@ function Profile({ setCurrentUser }) {
   function handleClickEditButton() {
     setDisabledInput(false);
     setVisibleSubmitButton(true);
+    setRequestResultMessage('');
   }
 
   function handleChangeNameInput(event) {
     setNameValue(event.target.value);
     setNameError(event.target.validationMessage);
     setNameValidity(event.target.validity.valid);
-    setMessageRusultEdit('');
+    setRequestResultMessage('');
     setUpdateProfileStatus(false);
     setSubmitButtonCaption('Сохранить');
   }
@@ -45,7 +46,7 @@ function Profile({ setCurrentUser }) {
     setEmailValue(event.target.value);
     setEmailError(event.target.validationMessage);
     setEmailValidity(event.target.validity.valid);
-    setMessageRusultEdit('');
+    setRequestResultMessage('');
     setUpdateProfileStatus(false);
     setSubmitButtonCaption('Сохранить');
   }
@@ -53,21 +54,21 @@ function Profile({ setCurrentUser }) {
   function handleSubmitForm(event) {
     event.preventDefault();
     if(!updateProfileStatus) {
-      setMessageRusultEdit('');
+      setRequestResultMessage('');
       setSubmitButtonCaption('Сохранение...');
       api.updateProfile(nameValue, emailValue)
         .then((user) => {
           setCurrentUser(user);
-          setMessageRusultEdit('Данные профиля успешно обновлены!');
+          setRequestResultMessage('Данные профиля успешно обновлены!');
           setUpdateProfileStatus(true);
           setSubmitButtonCaption('OK');
         })
         .catch((error) => {
-          setMessageRusultEdit(helper.getErrorMessage(error));
+          setRequestResultMessage(helper.getErrorMessage(error));
           setSubmitButtonCaption('Сохранить');
         });
     } else {
-      setMessageRusultEdit('');
+      setRequestResultMessage('');
       setUpdateProfileStatus(false);
       setSubmitButtonCaption('Сохранить');
       setDisabledInput(true);
@@ -76,14 +77,15 @@ function Profile({ setCurrentUser }) {
   }
 
   function handleClickExitButton() {
+    setRequestResultMessage('');
     setExitButtonCaption('Выход из аккаунта...');
     api.logout()
       .then(() => {
         setCurrentUser({});
         history.push('/');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setRequestResultMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
       })
       .finally(() => {
         setExitButtonCaption('Выйти из аккаунта');
@@ -136,7 +138,7 @@ function Profile({ setCurrentUser }) {
         </div>
         <div className="profile__container">
           <div className="profile__message-container">
-            <p className="profile__message-text">{messageResultEdit}</p>
+            <p className="profile__message-text">{requestResultMessage}</p>
           </div>
           {
             !isVisibleSubmitButton &&

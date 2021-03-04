@@ -10,12 +10,15 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import * as api from '../../utils/MainApi';
 import * as moviesApi from '../../utils/MoviesApi';
 import * as helper from '../../utils/helpers';
+import { SERVER_ERROR_MESSAGE } from '../../utils/constants';
 
 function App() {
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
+  const [errorPopupMessage, setErrorPopupMessage] = useState('');
   const [messageNoMovies, setMessageNoMovies] = useState('');
   const [searchMovies, setSearchMovies] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
@@ -64,7 +67,7 @@ function App() {
         setMessageNoMovies('Ничего не найдено');
       })
       .catch(() => {
-        setMessageNoMovies('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        setMessageNoMovies(SERVER_ERROR_MESSAGE);
       })
       .finally(() => {
         setVisiblePreloader(false);
@@ -78,8 +81,8 @@ function App() {
           setSelectedMovies([selectedMovie, ...selectedMovies]);
           adjustSearchMovies(movie, true);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          setErrorPopupMessage(SERVER_ERROR_MESSAGE);
         });
     } else {
       const movieId = movie.id || movie.movieId;
@@ -90,10 +93,14 @@ function App() {
           setSelectedMovies(newSelectedMovies);
           adjustSearchMovies(movie, false);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          setErrorPopupMessage(SERVER_ERROR_MESSAGE);
         });
     }
+  }
+
+  function handleClickButtonErrorPopup() {
+    setErrorPopupMessage('');
   }
 
   useEffect(() => {
@@ -160,6 +167,13 @@ function App() {
             <PageNotFound />
           </Route>
         </Switch>
+        {
+          !!errorPopupMessage &&
+          <ErrorPopup
+            errorPopupMessage={errorPopupMessage}
+            onClickButtonErrorPopup={handleClickButtonErrorPopup}
+          />
+        }
       </CurrentUserContext.Provider>
     </div>
   );
