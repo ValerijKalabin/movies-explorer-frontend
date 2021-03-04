@@ -14,7 +14,10 @@ import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import * as api from '../../utils/MainApi';
 import * as moviesApi from '../../utils/MoviesApi';
 import * as helper from '../../utils/helpers';
-import { SERVER_ERROR_MESSAGE } from '../../utils/constants';
+import {
+  NOT_FOUND_MOVIES,
+  SERVER_ERROR_MESSAGE
+} from '../../utils/constants';
 
 function App() {
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
@@ -64,7 +67,7 @@ function App() {
       .then((movies) => {
         const moviesFound = helper.searchFilter(movies, value);
         saveSearchMovies(moviesFound);
-        setMessageNoMovies('Ничего не найдено');
+        setMessageNoMovies(NOT_FOUND_MOVIES);
       })
       .catch(() => {
         setMessageNoMovies(SERVER_ERROR_MESSAGE);
@@ -107,7 +110,7 @@ function App() {
     const localMovies = JSON.parse(localStorage.getItem('movies-found'));
     if (localMovies && localMovies.length) {
       setSearchMovies(localMovies);
-      setMessageNoMovies('Ничего не найдено');
+      setMessageNoMovies(NOT_FOUND_MOVIES);
     }
     Promise.all([
       api.getUser(),

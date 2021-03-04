@@ -5,6 +5,10 @@ import { useHistory } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import * as api from '../../utils/MainApi';
 import * as helper from '../../utils/helpers';
+import {
+  SUCCESSFUL_PROFILE_UPDATE,
+  SERVER_ERROR_MESSAGE
+} from '../../utils/constants';
 
 function Profile({ setCurrentUser }) {
   const currentUser = useContext(CurrentUserContext);
@@ -59,7 +63,7 @@ function Profile({ setCurrentUser }) {
       api.updateProfile(nameValue, emailValue)
         .then((user) => {
           setCurrentUser(user);
-          setRequestResultMessage('Данные профиля успешно обновлены!');
+          setRequestResultMessage(SUCCESSFUL_PROFILE_UPDATE);
           setUpdateProfileStatus(true);
           setSubmitButtonCaption('OK');
         })
@@ -85,7 +89,7 @@ function Profile({ setCurrentUser }) {
         history.push('/');
       })
       .catch(() => {
-        setRequestResultMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        setRequestResultMessage(SERVER_ERROR_MESSAGE);
       })
       .finally(() => {
         setExitButtonCaption('Выйти из аккаунта');

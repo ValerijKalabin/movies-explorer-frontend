@@ -1,6 +1,7 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useState } from 'react';
+import { NEED_ENTER_KEYWORD } from '../../utils/constants';
 
 function SearchForm({
   onSearchSubmit,
@@ -19,7 +20,7 @@ function SearchForm({
     const valueTrim = value.trim();
     setValue(valueTrim);
     if(!valueTrim) {
-      setError('Нужно ввести ключевое слово');
+      setError(NEED_ENTER_KEYWORD);
     } else {
       setError('');
       onSearchSubmit(valueTrim);
