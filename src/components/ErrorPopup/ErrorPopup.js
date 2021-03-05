@@ -1,6 +1,6 @@
 import './ErrorPopup.css';
 
-function ErrorPopup({ errorPopupMessage, onClickButtonErrorPopup }) {
+function ErrorPopup({ errorPopupMessage, onClickPopupButton }) {
   return (
     <div className="popup">
       <div className="popup__container">
@@ -8,7 +8,7 @@ function ErrorPopup({ errorPopupMessage, onClickButtonErrorPopup }) {
         <button
           className="popup__button"
           type="button"
-          onClick={onClickButtonErrorPopup}
+          onClick={onClickPopupButton}
         >
           Закрыть
         </button>

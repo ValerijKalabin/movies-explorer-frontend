@@ -59,6 +59,10 @@ function App() {
     setSelectedMovies(movies.reverse());
   }
 
+  function handleUpdateUser(user) {
+    setCurrentUser(user);
+  }
+
   function handleMoviesSearchSubmit(value) {
     setMessageNoMovies('');
     setSearchMovies([]);
@@ -102,7 +106,7 @@ function App() {
     }
   }
 
-  function handleClickButtonErrorPopup() {
+  function handleClickPopupButton() {
     setErrorPopupMessage('');
   }
 
@@ -150,7 +154,7 @@ function App() {
           <ProtectedRoute
             path="/profile"
             component={Profile}
-            setCurrentUser={setCurrentUser}
+            onUpdateUser={handleUpdateUser}
           />
           <Route path="/signup">
             {
@@ -174,7 +178,7 @@ function App() {
           !!errorPopupMessage &&
           <ErrorPopup
             errorPopupMessage={errorPopupMessage}
-            onClickButtonErrorPopup={handleClickButtonErrorPopup}
+            onClickPopupButton={handleClickPopupButton}
           />
         }
       </CurrentUserContext.Provider>

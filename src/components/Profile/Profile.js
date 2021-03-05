@@ -10,7 +10,7 @@ import {
   SERVER_ERROR_MESSAGE
 } from '../../utils/constants';
 
-function Profile({ setCurrentUser }) {
+function Profile({ onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [exitButtonCaption, setExitButtonCaption] = useState('Выйти из аккаунта');
@@ -28,7 +28,7 @@ function Profile({ setCurrentUser }) {
   const [emailError, setEmailError] = useState('');
   const [emailValidity, setEmailValidity] = useState(true);
 
-  const isDisabledSubmitButton = !nameValidity || !emailValidity;
+  const isDisabledSubmitButton = ((nameValue === currentUser.name && emailValue === currentUser.email) || !nameValidity || !emailValidity) && !updateProfileStatus;
   const history = useHistory();
 
   function handleClickEditButton() {
@@ -62,7 +62,7 @@ function Profile({ setCurrentUser }) {
       setSubmitButtonCaption('Сохранение...');
       api.updateProfile(nameValue, emailValue)
         .then((user) => {
-          setCurrentUser(user);
+          onUpdateUser(user);
           setRequestResultMessage(SUCCESSFUL_PROFILE_UPDATE);
           setUpdateProfileStatus(true);
           setSubmitButtonCaption('OK');
@@ -85,7 +85,7 @@ function Profile({ setCurrentUser }) {
     setExitButtonCaption('Выход из аккаунта...');
     api.logout()
       .then(() => {
-        setCurrentUser({});
+        onUpdateUser({});
         history.push('/');
       })
       .catch(() => {
