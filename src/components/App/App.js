@@ -20,12 +20,13 @@ import {
 } from '../../utils/constants';
 
 function App() {
+  const localUser = JSON.parse(localStorage.getItem('current-user')) || {};
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
   const [errorPopupMessage, setErrorPopupMessage] = useState('');
   const [messageNoMovies, setMessageNoMovies] = useState('');
   const [searchMovies, setSearchMovies] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(localUser);
   const loggedIn = !!currentUser.email;
 
   function saveSearchMovies(moviesFound) {
@@ -56,11 +57,13 @@ function App() {
 
   function handleAuthSubmit(user, movies) {
     setCurrentUser(user);
+    localStorage.setItem('current-user', JSON.stringify(user));
     setSelectedMovies(movies.reverse());
   }
 
   function handleUpdateUser(user) {
     setCurrentUser(user);
+    localStorage.setItem('current-user', JSON.stringify(user));
   }
 
   function handleMoviesSearchSubmit(value) {
@@ -122,6 +125,7 @@ function App() {
     ])
       .then(([user, movies]) => {
         setCurrentUser(user);
+        localStorage.setItem('current-user', JSON.stringify(user));
         setSelectedMovies(movies.reverse());
       })
       .catch((error) => {
@@ -160,14 +164,14 @@ function App() {
             {
               !loggedIn
               ? <Register onRegisterSubmit={handleAuthSubmit} />
-              : <Redirect to="./movies" />
+              : <Redirect to="./" />
             }
           </Route>
           <Route path="/signin">
             {
               !loggedIn
               ? <Login onLoginSubmit={handleAuthSubmit} />
-              : <Redirect to="./movies" />
+              : <Redirect to="./" />
             }
           </Route>
           <Route path="*">
