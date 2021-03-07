@@ -13,7 +13,6 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import * as api from '../../utils/MainApi';
 import * as moviesApi from '../../utils/MoviesApi';
-import * as helper from '../../utils/helpers';
 import {
   NOT_FOUND_MOVIES,
   SERVER_ERROR_MESSAGE
@@ -24,35 +23,30 @@ function App() {
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
   const [errorPopupMessage, setErrorPopupMessage] = useState('');
   const [messageNoMovies, setMessageNoMovies] = useState('');
-  const [searchMovies, setSearchMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState(localUser);
   const loggedIn = !!currentUser.email;
 
-  function saveSearchMovies(moviesFound) {
-    const moviesVerified = moviesFound.map((movieFound) => {
-      const movieFoundSelected = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movieFound.id);
-      if(movieFoundSelected) {
-        movieFound.isSaved = true;
-      } else {
-        movieFound.isSaved = false;
-      }
-      return movieFound;
+  function saveAllMovies(movies) {
+    const moviesVerified = movies.map((movie) => {
+      movie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movie.id);
+      return movie;
     });
-    setSearchMovies(moviesVerified);
+    setAllMovies(moviesVerified);
     localStorage.setItem('movies-found', JSON.stringify(moviesVerified));
   };
 
-  function adjustSearchMovies(movie, isSaved) {
-    const newSearchMovies = searchMovies.map((searchMovie) => {
-      const movieId = movie.id || movie.movieId;
-      if (searchMovie.id === movieId) {
-        searchMovie.isSaved = isSaved;
+  function adjustAllMovies(movie, isSaved) {
+    const movieId = movie.id || movie.movieId;
+    const newAllMovies = allMovies.map((currentMovie) => {
+      if (currentMovie.id === movieId) {
+        currentMovie.isSaved = isSaved;
       }
-      return searchMovie;
+      return currentMovie;
     });
-    setSearchMovies(newSearchMovies);
-    localStorage.setItem('movies-found', JSON.stringify(newSearchMovies));
+    setAllMovies(newAllMovies);
+    localStorage.setItem('all-movies', JSON.stringify(newAllMovies));
   };
 
   function handleAuthSubmit(user, movies) {
@@ -66,14 +60,12 @@ function App() {
     localStorage.setItem('current-user', JSON.stringify(user));
   }
 
-  function handleMoviesSearchSubmit(value) {
+  function handleMoviesSearchSubmit() {
     setMessageNoMovies('');
-    setSearchMovies([]);
     setVisiblePreloader(true);
     moviesApi.getMovies()
       .then((movies) => {
-        const moviesFound = helper.searchFilter(movies, value);
-        saveSearchMovies(moviesFound);
+        saveAllMovies(movies);
         setMessageNoMovies(NOT_FOUND_MOVIES);
       })
       .catch(() => {
@@ -89,7 +81,7 @@ function App() {
       api.saveMovie(movie, currentUser._id)
         .then((selectedMovie) => {
           setSelectedMovies([selectedMovie, ...selectedMovies]);
-          adjustSearchMovies(movie, true);
+          adjustAllMovies(movie, true);
         })
         .catch(() => {
           setErrorPopupMessage(SERVER_ERROR_MESSAGE);
@@ -101,7 +93,7 @@ function App() {
         .then(() => {
           const newSelectedMovies = selectedMovies.filter((selectedMovie) => selectedMovie.movieId !== movieId);
           setSelectedMovies(newSelectedMovies);
-          adjustSearchMovies(movie, false);
+          adjustAllMovies(movie, false);
         })
         .catch(() => {
           setErrorPopupMessage(SERVER_ERROR_MESSAGE);
@@ -114,9 +106,9 @@ function App() {
   }
 
   useEffect(() => {
-    const localMovies = JSON.parse(localStorage.getItem('movies-found'));
+    const localMovies = JSON.parse(localStorage.getItem('all-movies'));
     if (localMovies && localMovies.length) {
-      setSearchMovies(localMovies);
+      setAllMovies(localMovies);
       setMessageNoMovies(NOT_FOUND_MOVIES);
     }
     Promise.all([
@@ -128,8 +120,8 @@ function App() {
         localStorage.setItem('current-user', JSON.stringify(user));
         setSelectedMovies(movies.reverse());
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setCurrentUser({ email: ''});
       });
   }, []);
 
@@ -143,11 +135,11 @@ function App() {
           <ProtectedRoute
             path="/movies"
             component={Movies}
+            allMovies={allMovies}
             onMoviesSearchSubmit={handleMoviesSearchSubmit}
             onClickCardButton={handleClickCardButton}
             isVisiblePreloader={isVisiblePreloader}
             messageNoMovies={messageNoMovies}
-            searchMovies={searchMovies}
           />
           <ProtectedRoute
             path="/saved-movies"
