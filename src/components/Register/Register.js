@@ -18,10 +18,11 @@ function Register({ onRegisterSubmit }) {
   const [passwordError, setPasswordError] = useState('');
   const [passwordValidity, setPasswordValidity] = useState(false);
 
-  const [buttonCaption, setButtonCaption] = useState('Зарегистрироваться');
+  const [isDisabledForm, setDisabledForm] = useState(false);
   const [authErrorMessage, setAuthErrorMessage] = useState('');
+  const [buttonCaption, setButtonCaption] = useState('Зарегистрироваться');
 
-  const isDisabledButton = !nameValidity || !emailValidity || !passwordValidity;
+  const isDisabledButton = !nameValidity || !emailValidity || !passwordValidity || isDisabledForm;
   const history = useHistory();
 
   function handleChangeInputName(event) {
@@ -47,6 +48,7 @@ function Register({ onRegisterSubmit }) {
 
   function handleSubmitForm(event) {
     event.preventDefault();
+    setDisabledForm(true);
     setAuthErrorMessage('');
     setButtonCaption('Регистрация...');
     api.register(nameValue, emailValue, passwordValue)
@@ -68,6 +70,7 @@ function Register({ onRegisterSubmit }) {
       })
       .finally(() => {
         setButtonCaption('Зарегистрироваться');
+        setDisabledForm(false);
       });
   }
 
@@ -96,6 +99,7 @@ function Register({ onRegisterSubmit }) {
             maxLength="30"
             value={nameValue}
             onChange={handleChangeInputName}
+            disabled={isDisabledForm}
           />
           {!!nameError && <span className="register__error">{nameError}</span>}
           <label className="register__label" htmlFor="email">E-mail</label>
@@ -110,6 +114,7 @@ function Register({ onRegisterSubmit }) {
             maxLength="30"
             value={emailValue}
             onChange={handleChangeInputEmail}
+            disabled={isDisabledForm}
           />
           {!!emailError && <span className="register__error">{emailError}</span>}
           <label className="register__label" htmlFor="password">Пароль</label>
@@ -123,6 +128,7 @@ function Register({ onRegisterSubmit }) {
             minLength="6"
             value={passwordValue}
             onChange={handleChangeInputPassword}
+            disabled={isDisabledForm}
           />
           {!!passwordError && <span className="register__error">{passwordError}</span>}
         </form>

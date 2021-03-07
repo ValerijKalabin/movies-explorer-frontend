@@ -9,7 +9,7 @@ import * as helper from '../../utils/helpers';
 function Movies({
   allMovies,
   onMoviesSearchSubmit,
-  isDisabledSearchInput,
+  isDisabledSearch,
   onClickCardButton,
   isVisiblePreloader,
   messageNoMovies
@@ -58,7 +58,7 @@ function Movies({
       <Header />
       <SearchForm
         onSearchSubmit={handleSearchSubmit}
-        isDisabledSearchInput={isDisabledSearchInput}
+        isDisabledSearch={isDisabledSearch}
         isCheckboxChecked={isCheckboxChecked}
         onCheckboxChange={handleCheckboxChange}
       />

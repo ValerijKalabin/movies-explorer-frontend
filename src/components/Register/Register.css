@@ -89,6 +89,10 @@
   border-bottom: 1px solid #000000;
 }
 
+.register__input:disabled {
+  background-color: transparent;
+}
+
 .register__input_error {
   color: #EE3465;
 }

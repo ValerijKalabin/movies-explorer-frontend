@@ -24,7 +24,7 @@ function App() {
   const localMessage = localMovies && localMovies.length ? NOT_FOUND_MOVIES : '';
 
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
-  const [isDisabledSearchInput, setDisabledSearchInput] = useState(false);
+  const [isDisabledSearch, setDisabledSearch] = useState(false);
   const [errorPopupMessage, setErrorPopupMessage] = useState('');
   const [messageNoMovies, setMessageNoMovies] = useState(localMessage);
   const [allMovies, setAllMovies] = useState(localMovies);
@@ -66,7 +66,7 @@ function App() {
   }
 
   function handleMoviesSearchSubmit() {
-    setDisabledSearchInput(true);
+    setDisabledSearch(true);
     setMessageNoMovies('');
     setVisiblePreloader(true);
     moviesApi.getMovies()
@@ -79,7 +79,7 @@ function App() {
       })
       .finally(() => {
         setVisiblePreloader(false);
-        setDisabledSearchInput(false);
+        setDisabledSearch(false);
       });
   }
 
@@ -124,7 +124,7 @@ function App() {
       })
       .catch(() => {
         setCurrentUser({});
-        localStorage.setItem('current-user', JSON.stringify({}));
+        localStorage.removeItem('current-user');
       });
   }, []);
 
@@ -140,7 +140,7 @@ function App() {
             component={Movies}
             allMovies={allMovies}
             onMoviesSearchSubmit={handleMoviesSearchSubmit}
-            isDisabledSearchInput={isDisabledSearchInput}
+            isDisabledSearch={isDisabledSearch}
             onClickCardButton={handleClickCardButton}
             isVisiblePreloader={isVisiblePreloader}
             messageNoMovies={messageNoMovies}

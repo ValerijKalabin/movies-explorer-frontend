@@ -14,10 +14,11 @@ function Login({ onLoginSubmit }) {
   const [passwordError, setPasswordError] = useState('');
   const [passwordValidity, setPasswordValidity] = useState(false);
 
-  const [buttonCaption, setButtonCaption] = useState('Войти');
+  const [isDisabledForm, setDisabledForm] = useState(false);
   const [authErrorMessage, setAuthErrorMessage] = useState('');
+  const [buttonCaption, setButtonCaption] = useState('Войти');
 
-  const isDisabledButton = !emailValidity || !passwordValidity;
+  const isDisabledButton = !emailValidity || !passwordValidity || isDisabledForm;
   const history = useHistory();
 
   function handleChangeInputEmail(event) {
@@ -36,6 +37,7 @@ function Login({ onLoginSubmit }) {
 
   function handleSubmitForm(event) {
     event.preventDefault();
+    setDisabledForm(true);
     setAuthErrorMessage('');
     setButtonCaption('Авторизация...');
     api.login(emailValue, passwordValue)
@@ -54,6 +56,7 @@ function Login({ onLoginSubmit }) {
       })
       .finally(() => {
         setButtonCaption('Войти');
+        setDisabledForm(false);
       });
   }
 
@@ -82,6 +85,7 @@ function Login({ onLoginSubmit }) {
             maxLength="30"
             value={emailValue}
             onChange={handleChangeInputEmail}
+            disabled={isDisabledForm}
           />
           {!!emailError && <span className="login__error">{emailError}</span>}
           <label className="login__label" htmlFor="password">Пароль</label>
@@ -95,6 +99,7 @@ function Login({ onLoginSubmit }) {
             minLength="6"
             value={passwordValue}
             onChange={handleChangeInputPassword}
+            disabled={isDisabledForm}
           />
           {!!passwordError && <span className="login__error">{passwordError}</span>}
         </form>
