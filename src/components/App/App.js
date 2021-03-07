@@ -63,6 +63,11 @@ function App() {
   function handleUpdateUser(user) {
     setCurrentUser(user);
     localStorage.setItem('current-user', JSON.stringify(user));
+    if(!user.length) {
+      setAllMovies([]);
+      localStorage.removeItem('all-movies');
+      setMessageNoMovies('');
+    }
   }
 
   function handleMoviesSearchSubmit() {
@@ -124,7 +129,10 @@ function App() {
       })
       .catch(() => {
         setCurrentUser({});
+        setAllMovies([]);
+        setMessageNoMovies('');
         localStorage.removeItem('current-user');
+        localStorage.removeItem('all-movies');
       });
   }, []);
 
