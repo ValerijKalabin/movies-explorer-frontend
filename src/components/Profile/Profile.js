@@ -16,8 +16,9 @@ function Profile({ onUpdateUser }) {
   const [exitButtonCaption, setExitButtonCaption] = useState('Выйти из аккаунта');
   const [submitButtonCaption, setSubmitButtonCaption] = useState('Сохранить');
   const [requestResultMessage, setRequestResultMessage] = useState('');
+  const [isDisabledExitButton, setDisabledExitButton] = useState(false);
   const [isVisibleSubmitButton, setVisibleSubmitButton] = useState(false);
-  const [isDisabledInput, setDisabledInput] = useState(true);
+  const [isDisabledForm, setDisabledForm] = useState(true);
   const [updateProfileStatus, setUpdateProfileStatus] = useState(false);
 
   const [nameValue, setNameValue] = useState(currentUser.name);
@@ -28,11 +29,16 @@ function Profile({ onUpdateUser }) {
   const [emailError, setEmailError] = useState('');
   const [emailValidity, setEmailValidity] = useState(true);
 
-  const isDisabledSubmitButton = ((nameValue === currentUser.name && emailValue === currentUser.email) || !nameValidity || !emailValidity) && !updateProfileStatus;
+  const isDisabledSubmitButton = (
+    (nameValue === currentUser.name && emailValue === currentUser.email)
+    || !nameValidity
+    || !emailValidity
+    || isDisabledForm
+  ) && !updateProfileStatus;
   const history = useHistory();
 
   function handleClickEditButton() {
-    setDisabledInput(false);
+    setDisabledForm(false);
     setVisibleSubmitButton(true);
     setRequestResultMessage('');
   }
@@ -58,6 +64,7 @@ function Profile({ onUpdateUser }) {
   function handleSubmitForm(event) {
     event.preventDefault();
     if(!updateProfileStatus) {
+      setDisabledForm(true);
       setRequestResultMessage('');
       setSubmitButtonCaption('Сохранение...');
       api.updateProfile(nameValue, emailValue)
@@ -70,17 +77,21 @@ function Profile({ onUpdateUser }) {
         .catch((error) => {
           setRequestResultMessage(helper.getErrorMessage(error));
           setSubmitButtonCaption('Сохранить');
+        })
+        .finally(() => {
+          setDisabledForm(false);
         });
     } else {
       setRequestResultMessage('');
       setUpdateProfileStatus(false);
       setSubmitButtonCaption('Сохранить');
-      setDisabledInput(true);
+      setDisabledForm(true);
       setVisibleSubmitButton(false);
     }
   }
 
   function handleClickExitButton() {
+    setDisabledExitButton(true);
     setRequestResultMessage('');
     setExitButtonCaption('Выход из аккаунта...');
     api.logout()
@@ -93,6 +104,7 @@ function Profile({ onUpdateUser }) {
       })
       .finally(() => {
         setExitButtonCaption('Выйти из аккаунта');
+        setDisabledExitButton(false);
       });
   }
 
@@ -121,7 +133,7 @@ function Profile({ onUpdateUser }) {
               minLength="2"
               maxLength="30"
               value={nameValue}
-              disabled={isDisabledInput}
+              disabled={isDisabledForm}
               onChange={handleChangeNameInput}
             />
             <input
@@ -134,7 +146,7 @@ function Profile({ onUpdateUser }) {
               minLength="5"
               maxLength="30"
               value={emailValue}
-              disabled={isDisabledInput}
+              disabled={isDisabledForm}
               onChange={handleChangeEmailInput}
             />
             <span className="profile__error profile__error_type_email">{emailError}</span>
@@ -160,6 +172,7 @@ function Profile({ onUpdateUser }) {
               className="profile__button profile__button_type_exit"
               type="button"
               onClick={handleClickExitButton}
+              disabled={isDisabledExitButton}
             >
               {exitButtonCaption}
             </button>
