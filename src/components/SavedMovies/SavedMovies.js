@@ -30,6 +30,7 @@ function SavedMovies({ selectedMovies, onClickCardButton }) {
       <Header />
       <SearchForm
         onSearchSubmit={handleSearchSubmit}
+        isDisabledSearchInput={false}
         isCheckboxChecked={isCheckboxChecked}
         onCheckboxChange={handleCheckboxChange}
       />

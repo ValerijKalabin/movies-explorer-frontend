@@ -5,6 +5,7 @@ import { NEED_ENTER_KEYWORD } from '../../utils/constants';
 
 function SearchForm({
   onSearchSubmit,
+  isDisabledSearchInput,
   isCheckboxChecked,
   onCheckboxChange
 }) {
@@ -37,6 +38,7 @@ function SearchForm({
           placeholder="Фильм"
           value={value}
           onChange={handleChange}
+          disabled={isDisabledSearchInput}
         />
         <button
           className="search__button"

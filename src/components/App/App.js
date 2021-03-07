@@ -20,12 +20,17 @@ import {
 
 function App() {
   const localUser = JSON.parse(localStorage.getItem('current-user')) || {};
+  const localMovies = JSON.parse(localStorage.getItem('all-movies')) || [];
+  const localMessage = localMovies && localMovies.length ? NOT_FOUND_MOVIES : '';
+
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
+  const [isDisabledSearchInput, setDisabledSearchInput] = useState(false);
   const [errorPopupMessage, setErrorPopupMessage] = useState('');
-  const [messageNoMovies, setMessageNoMovies] = useState('');
-  const [allMovies, setAllMovies] = useState([]);
+  const [messageNoMovies, setMessageNoMovies] = useState(localMessage);
+  const [allMovies, setAllMovies] = useState(localMovies);
   const [selectedMovies, setSelectedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState(localUser);
+
   const loggedIn = !!currentUser.email;
 
   function saveAllMovies(movies) {
@@ -34,7 +39,7 @@ function App() {
       return movie;
     });
     setAllMovies(moviesVerified);
-    localStorage.setItem('movies-found', JSON.stringify(moviesVerified));
+    localStorage.setItem('all-movies', JSON.stringify(moviesVerified));
   };
 
   function adjustAllMovies(movie, isSaved) {
@@ -61,6 +66,7 @@ function App() {
   }
 
   function handleMoviesSearchSubmit() {
+    setDisabledSearchInput(true);
     setMessageNoMovies('');
     setVisiblePreloader(true);
     moviesApi.getMovies()
@@ -73,6 +79,7 @@ function App() {
       })
       .finally(() => {
         setVisiblePreloader(false);
+        setDisabledSearchInput(false);
       });
   }
 
@@ -106,11 +113,6 @@ function App() {
   }
 
   useEffect(() => {
-    const localMovies = JSON.parse(localStorage.getItem('all-movies'));
-    if (localMovies && localMovies.length) {
-      setAllMovies(localMovies);
-      setMessageNoMovies(NOT_FOUND_MOVIES);
-    }
     Promise.all([
       api.getUser(),
       api.getSavedMovies()
@@ -121,7 +123,8 @@ function App() {
         setSelectedMovies(movies.reverse());
       })
       .catch(() => {
-        setCurrentUser({ email: ''});
+        setCurrentUser({});
+        localStorage.setItem('current-user', JSON.stringify({}));
       });
   }, []);
 
@@ -137,6 +140,7 @@ function App() {
             component={Movies}
             allMovies={allMovies}
             onMoviesSearchSubmit={handleMoviesSearchSubmit}
+            isDisabledSearchInput={isDisabledSearchInput}
             onClickCardButton={handleClickCardButton}
             isVisiblePreloader={isVisiblePreloader}
             messageNoMovies={messageNoMovies}
