@@ -40,22 +40,10 @@ function App() {
     localStorage.setItem('all-movies', JSON.stringify(verifiedMovies));
   };
 
-  function adjustAllMovies(movie, isSaved) {
-    const movieId = movie.id || movie.movieId;
-    const newAllMovies = allMovies.map((currentMovie) => {
-      if (currentMovie.id === movieId) {
-        currentMovie.isSaved = isSaved;
-      }
-      return currentMovie;
-    });
-    setAllMovies(newAllMovies);
-    localStorage.setItem('all-movies', JSON.stringify(newAllMovies));
-  };
-
   function handleAuthSubmit(user, movies) {
     setCurrentUser(user);
-    localStorage.setItem('current-user', JSON.stringify(user));
     setSelectedMovies(movies.reverse());
+    localStorage.setItem('current-user', JSON.stringify(user));
   }
 
   function handleUpdateUser(user) {
@@ -86,7 +74,6 @@ function App() {
       api.saveMovie(movie, currentUser._id)
         .then((selectedMovie) => {
           setSelectedMovies([selectedMovie, ...selectedMovies]);
-          adjustAllMovies(movie, true);
         })
         .catch(() => {
           setErrorPopupMessage(SERVER_ERROR_MESSAGE);
@@ -98,7 +85,6 @@ function App() {
         .then(() => {
           const newSelectedMovies = selectedMovies.filter((selectedMovie) => selectedMovie.movieId !== movieId);
           setSelectedMovies(newSelectedMovies);
-          adjustAllMovies(movie, false);
         })
         .catch(() => {
           setErrorPopupMessage(SERVER_ERROR_MESSAGE);
@@ -116,21 +102,28 @@ function App() {
       api.getSavedMovies()
     ])
       .then(([user, movies]) => {
-        const localMovies = JSON.parse(localStorage.getItem('all-movies')) || [];
-        const verifiedMovies = localMovies.map((localMovie) => {
-          localMovie.isSaved = movies.some((movie) => movie.movieId === localMovie.id);
-          return localMovie;
-        });
+        setCurrentUser(user);
         setSelectedMovies(movies.reverse());
-        setAllMovies(verifiedMovies);
-        setMessageNoMovies(NOT_FOUND_MOVIES);
         localStorage.setItem('current-user', JSON.stringify(user));
-        localStorage.setItem('all-movies', JSON.stringify(verifiedMovies));
       })
       .catch(() => {
+        setCurrentUser({});
         localStorage.removeItem('current-user');
       });
-  }, [currentUser]);
+  }, []);
+
+  useEffect(() => {
+    const localMovies = JSON.parse(localStorage.getItem('all-movies')) || [];
+    const verifiedMovies = localMovies.map((localMovie) => {
+      localMovie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === localMovie.id);
+      return localMovie;
+    });
+    setAllMovies(verifiedMovies);
+    localStorage.setItem('all-movies', JSON.stringify(verifiedMovies));
+    if(!!verifiedMovies.length) {
+      setMessageNoMovies(NOT_FOUND_MOVIES);
+    }
+  }, [currentUser, selectedMovies]);
 
   return (
     <div className="app">
