@@ -1,27 +1,58 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useState } from 'react';
+import { NEED_ENTER_KEYWORD } from '../../utils/constants';
 
-function SearchForm() {
+function SearchForm({
+  onSearchSubmit,
+  isDisabledSearch,
+  isCheckboxChecked,
+  onCheckboxChange
+}) {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState('');
+
+  function handleChange(event) {
+    setValue(event.target.value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const valueTrim = value.trim();
+    setValue(valueTrim);
+    if(!valueTrim) {
+      setError(NEED_ENTER_KEYWORD);
+    } else {
+      setError('');
+      onSearchSubmit(valueTrim);
+    }
+  }
+
   return (
     <div className="search">
-      <form className="search__form" name="search">
+      <form className="search__form" name="search" onSubmit={handleSubmit}>
         <input
           className="search__input"
           type="text"
           name="movie"
           placeholder="Фильм"
-          required
-          minLength="3"
+          value={value}
+          onChange={handleChange}
+          disabled={isDisabledSearch}
         />
         <button
           className="search__button"
           type="submit"
-          disabled
+          disabled={isDisabledSearch}
         >
           Найти
         </button>
       </form>
-      <FilterCheckbox />
+      <span className='search__error'>{error}</span>
+      <FilterCheckbox
+        isCheckboxChecked={isCheckboxChecked}
+        onCheckboxChange={onCheckboxChange}
+      />
     </div>
   );
 }

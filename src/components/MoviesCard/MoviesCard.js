@@ -1,21 +1,46 @@
 import './MoviesCard.css';
-import imageSaved from '../../images/card-saved.svg';
+import { getDurationCaption } from '../../utils/helpers';
+import { useLocation } from 'react-router-dom';
+import * as helpers from '../../utils/helpers';
 
-function MoviesCard({ card, isSavedMoviesList }) {
+function MoviesCard({ card, onClickCardButton }) {
+  const location = useLocation();
+  const isSavedMoviesList = location.pathname === '/saved-movies';
+
+  function handleClickButton() {
+    onClickCardButton(card);
+  }
+
   return (
     <li className="card">
       <div className="card__info">
-        <h3 className="card__title">{card.title}</h3>
-        <p className="card__duration">{card.duration}</p>
+        <h3 className="card__title">{card.nameRU}</h3>
+        <p className="card__duration">{`${card.duration} ${getDurationCaption(card.duration)}`}</p>
       </div>
-      <img className="card__image" src={card.image} alt={card.title} />
-      <button
-        className={`card__button ${card.saved && !isSavedMoviesList ? 'card__button_disabled' : ''}`}
-        disabled={card.saved && !isSavedMoviesList}
-        type="button"
+      <a
+        className="card__link"
+        href={helpers.getTrailerHref(card)}
+        target="_blank"
+        rel="noreferrer"
       >
-        { !isSavedMoviesList && card.saved && <img src={imageSaved} alt="Сохранено" /> }
-        { !isSavedMoviesList && !card.saved && 'Сохранить' }
+        <img
+          className="card__image"
+          src={helpers.getCardImage(card)}
+          alt={card.nameRU}
+        />
+      </a>
+      <button
+        className={`card__button ${!isSavedMoviesList && card.isSaved ? 'card__button_saved' : ''}`}
+        type="button"
+        onClick={handleClickButton}
+      >
+        {
+          !isSavedMoviesList && card.isSaved &&
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 3.75L3.81905 6L9 1.5" stroke="white" stroke-width="1.5"/>
+          </svg>
+        }
+        { !isSavedMoviesList && !card.isSaved && 'Сохранить' }
         {
           isSavedMoviesList &&
           <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">

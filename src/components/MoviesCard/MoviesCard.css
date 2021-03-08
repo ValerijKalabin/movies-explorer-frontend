@@ -49,6 +49,13 @@
   margin: 0;
 }
 
+.card__link {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 .card__image {
   display: block;
   object-fit: cover;
@@ -89,9 +96,16 @@
   fill: #FFFFFF;
 }
 
-.card__button_disabled {
+.card__button_saved {
   background-color: #EE3465;
-  cursor: default;
+}
+
+.card__button_saved:hover {
+  background-color: #F9F9F9;
+}
+
+.card__button_saved:hover svg path {
+  stroke: black;
 }
 
 @media screen and (max-width: 862px) {
