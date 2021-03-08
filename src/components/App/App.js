@@ -20,26 +20,24 @@ import {
 
 function App() {
   const localUser = JSON.parse(localStorage.getItem('current-user')) || {};
-  const localMovies = JSON.parse(localStorage.getItem('all-movies')) || [];
-  const localMessage = localMovies && localMovies.length ? NOT_FOUND_MOVIES : '';
 
   const [isVisiblePreloader, setVisiblePreloader] = useState(false);
   const [isDisabledSearch, setDisabledSearch] = useState(false);
   const [errorPopupMessage, setErrorPopupMessage] = useState('');
-  const [messageNoMovies, setMessageNoMovies] = useState(localMessage);
-  const [allMovies, setAllMovies] = useState(localMovies);
+  const [messageNoMovies, setMessageNoMovies] = useState('');
+  const [allMovies, setAllMovies] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
   const [currentUser, setCurrentUser] = useState(localUser);
 
   const loggedIn = !!currentUser.email;
 
   function saveAllMovies(movies) {
-    const moviesVerified = movies.map((movie) => {
+    const verifiedMovies = movies.map((movie) => {
       movie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movie.id);
       return movie;
     });
-    setAllMovies(moviesVerified);
-    localStorage.setItem('all-movies', JSON.stringify(moviesVerified));
+    setAllMovies(verifiedMovies);
+    localStorage.setItem('all-movies', JSON.stringify(verifiedMovies));
   };
 
   function adjustAllMovies(movie, isSaved) {
@@ -63,11 +61,6 @@ function App() {
   function handleUpdateUser(user) {
     setCurrentUser(user);
     localStorage.setItem('current-user', JSON.stringify(user));
-    if(!user.length) {
-      setAllMovies([]);
-      localStorage.removeItem('all-movies');
-      setMessageNoMovies('');
-    }
   }
 
   function handleMoviesSearchSubmit() {
@@ -123,18 +116,21 @@ function App() {
       api.getSavedMovies()
     ])
       .then(([user, movies]) => {
-        setCurrentUser(user);
-        localStorage.setItem('current-user', JSON.stringify(user));
+        const localMovies = JSON.parse(localStorage.getItem('all-movies')) || [];
+        const verifiedMovies = localMovies.map((localMovie) => {
+          localMovie.isSaved = movies.some((movie) => movie.movieId === localMovie.id);
+          return localMovie;
+        });
         setSelectedMovies(movies.reverse());
+        setAllMovies(verifiedMovies);
+        setMessageNoMovies(NOT_FOUND_MOVIES);
+        localStorage.setItem('current-user', JSON.stringify(user));
+        localStorage.setItem('all-movies', JSON.stringify(verifiedMovies));
       })
       .catch(() => {
-        setCurrentUser({});
-        setAllMovies([]);
-        setMessageNoMovies('');
         localStorage.removeItem('current-user');
-        localStorage.removeItem('all-movies');
       });
-  }, []);
+  }, [currentUser]);
 
   return (
     <div className="app">
