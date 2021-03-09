@@ -10,7 +10,7 @@ import {
   SERVER_ERROR_MESSAGE
 } from '../../utils/constants';
 
-function Profile({ onUpdateUser }) {
+function Profile({ onSubmitProfileForm, onClickExitButton }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [exitButtonCaption, setExitButtonCaption] = useState('Выйти из аккаунта');
@@ -69,7 +69,7 @@ function Profile({ onUpdateUser }) {
       setSubmitButtonCaption('Сохранение...');
       api.updateProfile(nameValue, emailValue)
         .then((user) => {
-          onUpdateUser(user);
+          onSubmitProfileForm(user);
           setRequestResultMessage(SUCCESSFUL_PROFILE_UPDATE);
           setUpdateProfileStatus(true);
           setSubmitButtonCaption('OK');
@@ -96,7 +96,7 @@ function Profile({ onUpdateUser }) {
     setExitButtonCaption('Выход из аккаунта...');
     api.logout()
       .then(() => {
-        onUpdateUser({});
+        onClickExitButton();
         history.push('/');
       })
       .catch(() => {

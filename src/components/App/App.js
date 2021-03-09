@@ -37,7 +37,6 @@ function App() {
       return movie;
     });
     setAllMovies(verifiedMovies);
-    localStorage.setItem('all-movies', JSON.stringify(verifiedMovies));
   };
 
   function handleAuthSubmit(user, movies) {
@@ -46,9 +45,15 @@ function App() {
     localStorage.setItem('current-user', JSON.stringify(user));
   }
 
-  function handleUpdateUser(user) {
+  function handleSubmitProfileForm(user) {
     setCurrentUser(user);
     localStorage.setItem('current-user', JSON.stringify(user));
+  }
+
+  function handleClickExitButton() {
+    setCurrentUser({});
+    setSelectedMovies([]);
+    localStorage.removeItem('current-user');
   }
 
   function handleMoviesSearchSubmit() {
@@ -59,6 +64,7 @@ function App() {
       .then((movies) => {
         saveAllMovies(movies);
         setMessageNoMovies(NOT_FOUND_MOVIES);
+        localStorage.setItem('all-movies', JSON.stringify(movies));
       })
       .catch(() => {
         setMessageNoMovies(SERVER_ERROR_MESSAGE);
@@ -79,11 +85,11 @@ function App() {
           setErrorPopupMessage(SERVER_ERROR_MESSAGE);
         });
     } else {
-      const movieId = movie.id || movie.movieId;
-      const deletedMovie = selectedMovies.find((selectedMovie) => selectedMovie.movieId === movieId);
-      api.deleteMovie(deletedMovie._id)
+      const movieIdToDelete = movie.id || movie.movieId;
+      const movieToDelete = selectedMovies.find((selectedMovie) => selectedMovie.movieId === movieIdToDelete);
+      api.deleteMovie(movieToDelete._id)
         .then(() => {
-          const newSelectedMovies = selectedMovies.filter((selectedMovie) => selectedMovie.movieId !== movieId);
+          const newSelectedMovies = selectedMovies.filter((selectedMovie) => selectedMovie.movieId !== movieIdToDelete);
           setSelectedMovies(newSelectedMovies);
         })
         .catch(() => {
@@ -114,14 +120,16 @@ function App() {
 
   useEffect(() => {
     const localMovies = JSON.parse(localStorage.getItem('all-movies')) || [];
-    const verifiedMovies = localMovies.map((localMovie) => {
-      localMovie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === localMovie.id);
-      return localMovie;
-    });
-    setAllMovies(verifiedMovies);
-    localStorage.setItem('all-movies', JSON.stringify(verifiedMovies));
-    if(!!verifiedMovies.length) {
+    if(!!localMovies.length) {
+      const verifiedMovies = localMovies.map((localMovie) => {
+        localMovie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === localMovie.id);
+        return localMovie;
+      });
+      setAllMovies(verifiedMovies);
       setMessageNoMovies(NOT_FOUND_MOVIES);
+    } else {
+      setAllMovies([]);
+      setMessageNoMovies('');
     }
   }, [currentUser, selectedMovies]);
 
@@ -151,7 +159,8 @@ function App() {
           <ProtectedRoute
             path="/profile"
             component={Profile}
-            onUpdateUser={handleUpdateUser}
+            onSubmitProfileForm={handleSubmitProfileForm}
+            onClickExitButton={handleClickExitButton}
           />
           <Route path="/signup">
             {
