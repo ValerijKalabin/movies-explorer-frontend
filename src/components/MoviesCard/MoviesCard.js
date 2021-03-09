@@ -1,7 +1,6 @@
 import './MoviesCard.css';
-import { getDurationCaption } from '../../utils/helpers';
 import { useLocation } from 'react-router-dom';
-import * as helpers from '../../utils/helpers';
+import * as helper from '../../utils/helpers';
 
 function MoviesCard({ card, onClickCardButton }) {
   const location = useLocation();
@@ -15,17 +14,17 @@ function MoviesCard({ card, onClickCardButton }) {
     <li className="card">
       <div className="card__info">
         <h3 className="card__title">{card.nameRU}</h3>
-        <p className="card__duration">{`${card.duration} ${getDurationCaption(card.duration)}`}</p>
+        <p className="card__duration">{`${card.duration} ${helper.getDurationCaption(card.duration)}`}</p>
       </div>
       <a
         className="card__link"
-        href={helpers.getTrailerHref(card)}
+        href={helper.getTrailerHref(card)}
         target="_blank"
         rel="noreferrer"
       >
         <img
           className="card__image"
-          src={helpers.getCardImage(card)}
+          src={helper.getCardImage(card)}
           alt={card.nameRU}
         />
       </a>
