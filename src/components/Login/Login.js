@@ -5,7 +5,7 @@ import logo from '../../images/logo.svg';
 import * as api from '../../utils/MainApi';
 import * as helper from '../../utils/helpers';
 
-function Login({ onLoginSubmit }) {
+function Login({ onSubmitLoginForm }) {
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailValidity, setEmailValidity] = useState(false);
@@ -47,7 +47,7 @@ function Login({ onLoginSubmit }) {
           api.getSavedMovies()
         ])
           .then(([user, movies]) => {
-            onLoginSubmit(user, movies);
+            onSubmitLoginForm(user, movies);
             history.push('/movies');
           });
       })

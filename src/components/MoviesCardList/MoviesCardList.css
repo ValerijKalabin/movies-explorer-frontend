@@ -2,6 +2,7 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  min-height: calc(100vh - 497px);
   padding: 70px 70px 80px;
   margin: 0;
 }
@@ -80,6 +81,7 @@
 
 @media screen and (max-width: 462px) {
   .cards {
+    min-height: calc(100vh - 604px);
     padding: 40px 10px 80px;
   }
 

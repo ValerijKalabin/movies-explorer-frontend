@@ -12,7 +12,7 @@ function MoviesCardList({
 }) {
   const isVisibleMessage = !cards.length;
   const isVisibleCards = !!cards.length;
-  
+
   return (
     <section className="cards">
       {

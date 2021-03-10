@@ -5,7 +5,7 @@ import logo from '../../images/logo.svg';
 import * as api from '../../utils/MainApi';
 import * as helper from '../../utils/helpers';
 
-function Register({ onRegisterSubmit }) {
+function Register({ onSubmitRegisterForm }) {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [nameValidity, setNameValidity] = useState(false);
@@ -60,7 +60,7 @@ function Register({ onRegisterSubmit }) {
               api.getSavedMovies()
             ])
               .then(([user, movies]) => {
-                onRegisterSubmit(user, movies);
+                onSubmitRegisterForm(user, movies);
                 history.push('/movies');
               });
           });

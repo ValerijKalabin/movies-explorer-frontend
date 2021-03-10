@@ -8,7 +8,7 @@ import * as helper from '../../utils/helpers';
 
 function Movies({
   allMovies,
-  onMoviesSearchSubmit,
+  onSubmitMoviesSearch,
   isDisabledSearch,
   onClickCardButton,
   isVisiblePreloader,
@@ -23,7 +23,7 @@ function Movies({
   function handleSearchSubmit(value) {
     setSearchValue(value);
     if(!allMovies.length) {
-      onMoviesSearchSubmit();
+      onSubmitMoviesSearch();
     }
   }
 

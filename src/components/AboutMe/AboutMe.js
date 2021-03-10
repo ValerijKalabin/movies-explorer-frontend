@@ -9,7 +9,7 @@ function AboutMe() {
         <div className="student__info">
           <div className="student__profile">
             <h3 className="student__name">Валерий</h3>
-            <p className="student__profession">Вэб-разработчик</p>
+            <p className="student__profession">Веб-разработчик</p>
             <p className="student__description">
               Я родился в городе Прокопьевске Кемеровской области.
               Окончил Сибирский металлургический институт в городе Новокузнецке

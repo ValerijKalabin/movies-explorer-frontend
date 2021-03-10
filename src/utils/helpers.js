@@ -53,3 +53,8 @@ export const getCardImage = (card) => {
   if (card.image) return card.image;
   return noImage;
 };
+
+export const verifyMovies = (movies, selectedMovies) => movies.map((movie) => {
+  movie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movie.id);
+  return movie;
+});

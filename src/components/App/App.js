@@ -13,6 +13,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import * as api from '../../utils/MainApi';
 import * as moviesApi from '../../utils/MoviesApi';
+import * as helper from '../../utils/helpers';
 import {
   NOT_FOUND_MOVIES,
   SERVER_ERROR_MESSAGE
@@ -31,15 +32,7 @@ function App() {
 
   const loggedIn = !!currentUser.email;
 
-  function saveAllMovies(movies) {
-    const verifiedMovies = movies.map((movie) => {
-      movie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movie.id);
-      return movie;
-    });
-    setAllMovies(verifiedMovies);
-  };
-
-  function handleAuthSubmit(user, movies) {
+  function handleSubmitAuthForm(user, movies) {
     setCurrentUser(user);
     setSelectedMovies(movies.reverse());
     localStorage.setItem('current-user', JSON.stringify(user));
@@ -56,13 +49,13 @@ function App() {
     localStorage.removeItem('current-user');
   }
 
-  function handleMoviesSearchSubmit() {
+  function handleSubmitMoviesSearch() {
     setDisabledSearch(true);
     setMessageNoMovies('');
     setVisiblePreloader(true);
     moviesApi.getMovies()
       .then((movies) => {
-        saveAllMovies(movies);
+        setAllMovies(helper.verifyMovies(movies, selectedMovies));
         setMessageNoMovies(NOT_FOUND_MOVIES);
         localStorage.setItem('all-movies', JSON.stringify(movies));
       })
@@ -120,18 +113,13 @@ function App() {
 
   useEffect(() => {
     const localMovies = JSON.parse(localStorage.getItem('all-movies')) || [];
+    setAllMovies(helper.verifyMovies(localMovies, selectedMovies));
     if(!!localMovies.length) {
-      const verifiedMovies = localMovies.map((localMovie) => {
-        localMovie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === localMovie.id);
-        return localMovie;
-      });
-      setAllMovies(verifiedMovies);
       setMessageNoMovies(NOT_FOUND_MOVIES);
     } else {
-      setAllMovies([]);
       setMessageNoMovies('');
     }
-  }, [currentUser, selectedMovies]);
+  }, [selectedMovies]);
 
   return (
     <div className="app">
@@ -144,7 +132,7 @@ function App() {
             path="/movies"
             component={Movies}
             allMovies={allMovies}
-            onMoviesSearchSubmit={handleMoviesSearchSubmit}
+            onSubmitMoviesSearch={handleSubmitMoviesSearch}
             isDisabledSearch={isDisabledSearch}
             onClickCardButton={handleClickCardButton}
             isVisiblePreloader={isVisiblePreloader}
@@ -165,14 +153,14 @@ function App() {
           <Route path="/signup">
             {
               !loggedIn
-              ? <Register onRegisterSubmit={handleAuthSubmit} />
+              ? <Register onSubmitRegisterForm={handleSubmitAuthForm} />
               : <Redirect to="./" />
             }
           </Route>
           <Route path="/signin">
             {
               !loggedIn
-              ? <Login onLoginSubmit={handleAuthSubmit} />
+              ? <Login onSubmitLoginForm={handleSubmitAuthForm} />
               : <Redirect to="./" />
             }
           </Route>
