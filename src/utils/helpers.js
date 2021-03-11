@@ -54,7 +54,10 @@ export const getCardImage = (card) => {
   return noImage;
 };
 
-export const verifyMovies = (movies, selectedMovies) => movies.map((movie) => {
-  movie.isSaved = selectedMovies.some((selectedMovie) => selectedMovie.movieId === movie.id);
-  return movie;
-});
+export const verifyMovies = (movies, selectedMovies) => {
+  selectedMovies.forEach((selectedMovie) => {
+    const indexSavedMovie = movies.findIndex((movie) => movie.id === selectedMovie.movieId);
+    movies[indexSavedMovie].isSaved = true;
+  });
+  return movies;
+};
